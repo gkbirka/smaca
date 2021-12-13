@@ -1,0 +1,199 @@
+@import "../base.css";
+
+/*******************************************************************************
+ *                                                                             *
+ * Text                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+
+.text,
+TextFlow > * {
+    -fx-fill: #24272c;
+}
+
+.text-light {
+    -fx-fill: #a4a2ab;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Container                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+.container-primary {
+    -fx-background-color: #f3f5f7;
+}
+
+.container-secondary {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #eeeeee;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Ikonli Font Icon                                                            *
+ *                                                                             *
+ ******************************************************************************/
+
+.ikonli-font-icon {
+    -fx-icon-color: #24272c;
+}
+
+.icon-sidebar {
+    -fx-icon-color: #dadada;
+}
+
+.icon-sidebar-selected {
+    -fx-icon-color: #007aff;
+}
+
+.icon-disconnect {
+    -fx-icon-color: #e57373;
+}
+
+.icon-other {
+    -fx-icon-color: #007aff;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Button                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+
+.button:default {
+    -fx-background-color: #24272c;
+}
+
+.button:default .text {
+    -fx-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: #4c4f55;
+}
+
+.button:default:armed {
+    -fx-background-color: #24272c;
+}
+
+.circle {
+    -fx-background-color: #deeffe;
+    -fx-border-color: #007aff;
+}
+
+.key {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f6efed;
+}
+
+.key .text {
+    -fx-fill: #24272c;
+}
+
+.key:hover {
+    -fx-background-color: #d5d3dd;
+    -fx-border-color: #d5d3dd;
+}
+
+.key:armed {
+    -fx-background-color: #a4a2ab;
+}
+
+.key:focused {
+    -fx-border-color: #d5d3dd;
+}
+
+.dot {
+    -fx-background-color: #f3f5f7;
+    -fx-border-color: #24272c;
+}
+
+.dot-filled {
+    -fx-background-color: #24272c;
+}
+
+.button-sidebar {
+    -fx-background-color: #ffffff;
+}
+
+.button-sidebar-selected {
+    -fx-background-color: #deeffe;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Field                                                                       *
+ *                                                                             *
+ ******************************************************************************/
+
+.text-field,
+.password-field {
+    -fx-accent: #24272c;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d5d3dd;
+    -fx-text-fill: #24272c;
+}
+
+.text-field:hover,
+.password-field:hover {
+    -fx-border-color: #a4a2ab;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #007aff;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Context Menu                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+.context-menu {
+    -fx-background-color: #f3f5f7;
+    -fx-border-color: #dadada;
+}
+
+.context-menu .text {
+    -fx-fill: #24272c;
+}
+
+.context-menu .menu-item:focused .text {
+    -fx-fill: #ffffff;
+}
+
+.context-menu .menu-item:disabled .text {
+    -fx-fill: #757575;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Tooltip                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+.tooltip {
+    -fx-background-color: rgba(243, 245, 247, 0.8);
+    -fx-border-color: #dadada;
+}
+
+.tooltip .text {
+    -fx-fill: #24272c;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Progress Bar                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+.progress-bar > .track {
+    -fx-background-color: #24272c;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: white;
+}

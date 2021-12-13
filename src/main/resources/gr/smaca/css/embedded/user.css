@@ -1,0 +1,58 @@
+/*******************************************************************************
+ *                                                                             *
+ * Background                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+#background {
+    -fx-alignment: center;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Scan Text                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+#scanTextFlow {
+    -fx-text-alignment: center;
+}
+
+#scanText {
+    -fx-font-family: 'Manrope Bold';
+    -fx-text-alignment: center;
+    -fx-font-size: 2em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Scan Icon                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+#scanIconHolder {
+    -fx-font-size: 5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#scanIcon {
+    /*Comment -fx-icon-code to open user.fxml in SceneBuilder*/
+    -fx-icon-code: las-tag;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * EPC Text                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+
+#epcTextFlow {
+    -fx-text-alignment: center;
+}
+
+#epcText {
+    -fx-font-family: 'Manrope Bold';
+    -fx-text-alignment: center;
+    -fx-font-size: 2em;
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<ScrollPane fx:id="root" fitToHeight="true" fitToWidth="true" styleClass="container-primary" stylesheets="@../css/embedded/sidebar.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.smaca.sidebar.SidebarView">
+   <content>
+      <VBox fx:id="background" styleClass="container-secondary">
+         <children>
+            <Button fx:id="basket" mnemonicParsing="false" styleClass="button-sidebar">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label fx:id="basketIconHolder">
+                     <graphic>
+                        <FontIcon fx:id="basketIcon" styleClass="icon-sidebar" />
+                     </graphic>
+                  </Label>
+               </graphic>
+            </Button>
+            <Button fx:id="history" mnemonicParsing="false" styleClass="button-sidebar">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label fx:id="historyIconHolder">
+                     <graphic>
+                        <FontIcon fx:id="historyIcon" styleClass="icon-sidebar" />
+                     </graphic>
+                  </Label>
+               </graphic>
+            </Button>
+            <Button fx:id="profile" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" styleClass="button-sidebar">
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label fx:id="profileIconHolder">
+                     <graphic>
+                        <FontIcon fx:id="profileIcon" styleClass="icon-sidebar" />
+                     </graphic>
+                  </Label>
+               </graphic>
+            </Button>
+            <Button fx:id="disconnect" layoutX="25.0" layoutY="135.0" mnemonicParsing="false" styleClass="button-sidebar">
+               <graphic>
+                  <Label fx:id="disconnectIconHolder">
+                     <graphic>
+                        <FontIcon fx:id="disconnectIcon" styleClass="icon-disconnect" />
+                     </graphic>
+                  </Label>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

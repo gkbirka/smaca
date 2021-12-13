@@ -1,0 +1,88 @@
+/*******************************************************************************
+ *                                                                             *
+ * Root                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+
+#root {
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Background                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+#background {
+    -fx-alignment: center;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Cart Icon                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+#basketIconHolder {
+    -fx-font-size: 5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#basketIcon {
+    /*Comment -fx-icon-code to open sidebar.fxml in SceneBuilder*/
+    -fx-icon-code: las-shopping-basket;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * History Icon                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+#historyIconHolder {
+    -fx-font-size: 5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#historyIcon {
+    /*Comment -fx-icon-code to open sidebar.fxml in SceneBuilder*/
+    -fx-icon-code: las-history;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Profile Icon                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+#profileIconHolder {
+    -fx-font-size: 5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#profileIcon {
+    /*Comment -fx-icon-code to open sidebar.fxml in SceneBuilder*/
+    -fx-icon-code: las-user-circle;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Sign Out Icon                                                               *
+ *                                                                             *
+ ******************************************************************************/
+
+#disconnectIconHolder {
+    -fx-font-size: 5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#disconnectIcon {
+    /*Comment -fx-icon-code to open sidebar.fxml in SceneBuilder*/
+    -fx-icon-code: las-sign-out-alt;
+}
