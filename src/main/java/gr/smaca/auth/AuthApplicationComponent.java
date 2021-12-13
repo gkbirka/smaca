@@ -18,7 +18,7 @@ public class AuthApplicationComponent implements ApplicationComponent {
 
         AuthService service = new AuthService();
         AuthViewModel viewModel = new AuthViewModel(context.getEventBus(), service);
-        //viewModel.userProperty().set(userState.userProperty().get());
+        viewModel.userProperty().set(userState.userProperty().get());
         AuthView view = new AuthView(viewModel);
 
         EventListener<AuthEvent> eventListener = new EventListener<>() {
