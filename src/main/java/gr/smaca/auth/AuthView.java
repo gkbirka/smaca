@@ -4,7 +4,7 @@ import gr.smaca.common.view.AbstractView;
 import gr.smaca.dialog.DialogBuilder;
 import gr.smaca.dialog.DialogTemplate;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -43,7 +43,7 @@ public class AuthView extends AbstractView {
     }
 
     @FXML
-    private void handle(ActionEvent keyEvent) {
+    private void handle(Event keyEvent) {
         root.requestFocus();
 
         SimpleStringProperty pin = viewModel.pinProperty();
