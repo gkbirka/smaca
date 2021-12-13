@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<ScrollPane fx:id="root" fitToHeight="true" fitToWidth="true" prefHeight="500.0" prefWidth="700.0" stylesheets="@../css/embedded/auth.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.smaca.auth.AuthView">
+   <content>
+      <VBox fx:id="background" styleClass="container-primary">
+         <children>
+            <VBox fx:id="form" styleClass="container-primary" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label maxWidth="1.7976931348623157E308" styleClass="insets-label" />
+                  <TextFlow fx:id="promptTextFlow">
+                     <children>
+                        <Text fx:id="promptText" strokeType="OUTSIDE" strokeWidth="0.0" text="%auth.label.prompt" />
+                     </children>
+                  </TextFlow>
+                  <Label maxWidth="1.7976931348623157E308" styleClass="insets-label" />
+                  <HBox fx:id="dotBox" mouseTransparent="true">
+                     <children>
+                        <Button fx:id="firstDot" focusTraversable="false" mnemonicParsing="false" styleClass="dot">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="secondDot" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="dot">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="thirdDot" focusTraversable="false" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" styleClass="dot">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="fourthDot" focusTraversable="false" layoutX="114.0" layoutY="10.0" mnemonicParsing="false" styleClass="dot">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label maxWidth="1.7976931348623157E308" styleClass="insets-label" />
+                  <GridPane fx:id="numpad" alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.333" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.333" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.333" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="9" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button fx:id="cancel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onTouchPressed="#handle" styleClass="key" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <graphic>
+                              <Label fx:id="cancelIconHolder">
+                                 <graphic>
+                                    <FontIcon fx:id="cancelIcon" />
+                                 </graphic>
+                              </Label>
+                           </graphic></Button>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handle" onTouchPressed="#handle" styleClass="key" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Button fx:id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onTouchPressed="#handle" styleClass="key" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <graphic>
+                              <Label fx:id="clearIconHolder">
+                                 <graphic>
+                                    <FontIcon fx:id="clearIcon" />
+                                 </graphic>
+                              </Label>
+                           </graphic></Button>
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </content>
+   <styleClass>
+      <String fx:value="edge-to-edge" />
+      <String fx:value="container-primary" />
+   </styleClass>
+</ScrollPane>

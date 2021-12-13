@@ -1,0 +1,127 @@
+/*******************************************************************************
+ *                                                                             *
+ * Font                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+
+@font-face {
+    src: url("../font/Manrope-Medium.ttf");
+}
+
+@font-face {
+    src: url("../font/Manrope-Bold.ttf");
+}
+
+@font-face {
+    src: url("../font/Manrope-ExtraBold.ttf");
+}
+
+.root {
+    -fx-font-family: 'Manrope Medium';
+    -fx-font-size: 14px;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Text                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Background & Border Radius (Common)                                         *
+ *                                                                             *
+ ******************************************************************************/
+
+.button,
+.text-field,
+.password-field,
+.context-menu,
+.context-menu .menu-item,
+.tooltip {
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Container                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+.scroll-pane {
+    -fx-padding: 0px;
+    -fx-background-insets: 0px;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0px;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0px;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Dialog Pane                                                                 *
+ *                                                                             *
+ ******************************************************************************/
+
+.dialog-pane .button:default {
+    -fx-font-family: 'Manrope ExtraBold';
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Button                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+
+.button {
+    -fx-background-insets: 2px;
+    -fx-border-width: 3px;
+}
+
+.circle {
+    -fx-background-radius: 10em;
+    -fx-border-radius: 10em;
+    -fx-border-width: 8px;
+    -fx-min-width: 10em;
+    -fx-min-height: 10em;
+    -fx-max-width: 10em;
+    -fx-max-height: 10em;
+}
+
+.dot {
+    -fx-background-radius: 10em;
+    -fx-border-radius: 10em;
+    -fx-border-width: 4px;
+    -fx-min-width: 3em;
+    -fx-min-height: 3em;
+    -fx-max-width: 3em;
+    -fx-max-height: 3em;
+}
+
+.key .text {
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 5em;
+}
+
+.button-sidebar {
+    -fx-min-width: 8em;
+    -fx-min-height: 8em;
+    -fx-max-width: 8em;
+    -fx-max-height: 8em;
+    -fx-padding: 0;
+}

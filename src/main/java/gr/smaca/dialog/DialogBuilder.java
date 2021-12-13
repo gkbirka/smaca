@@ -1,85 +1,37 @@
 package gr.smaca.dialog;
 
-import gr.smaca.common.layout.Container;
 import javafx.scene.control.Alert;
+import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
-class DialogBuilder {
-    private Container container;
-    private DialogType dialogType;
-    private String headerText;
-    private String contentText;
+public class DialogBuilder {
     private static final String BUNDLE_NAME = "gr.smaca.i18n.bundle";
 
-    DialogBuilder container(Container container) {
-        if (container == null) {
-            throw new IllegalStateException("Container required.");
-        }
-        this.container = container;
-        return this;
+    public DialogBuilder() {
     }
 
-    private void setDialogType(DialogType dialogType) {
-        if (dialogType == null) {
-            throw new IllegalStateException("Dialog type required.");
-        }
-        this.dialogType = dialogType;
-    }
+    public Alert build(DialogTemplate template, Stage owner) {
+        Alert alert = new Alert(template.getType());
+        alert.setTitle(owner.getTitle());
 
-    private void setHeaderText(String headerTextKey) {
         String headerText = null;
-        if (headerTextKey != null) {
-            headerText = ResourceBundle.getBundle(BUNDLE_NAME).getString(headerTextKey);
+        if (template.getHeaderTextKey() != null) {
+            headerText = ResourceBundle.getBundle(BUNDLE_NAME).getString(template.getHeaderTextKey());
         }
-        this.headerText = headerText;
-    }
-
-    private void setContentText(String contentTextKey) {
-        String contentText = null;
-        if (contentTextKey != null) {
-            contentText = ResourceBundle.getBundle(BUNDLE_NAME).getString(contentTextKey);
-        }
-        this.contentText = contentText;
-    }
-
-    DialogBuilder build(Dialog dialog) {
-        setDialogType(dialog.getDialogType());
-        setHeaderText(dialog.getHeaderTextKey());
-        setContentText(dialog.getContentTextKey());
-        return this;
-    }
-
-    Alert build() {
-        if (dialogType == null) {
-            throw new IllegalStateException("Dialog type required.");
-        }
-
-        final Alert alert = new Alert(getType());
-        alert.setTitle(((Stage) container.getScene().getWindow()).getTitle());
         alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-        alert.initOwner(container.getScene().getWindow());
-        return alert;
-    }
 
-    private Alert.AlertType getType() {
-        switch (dialogType) {
-            case INFORMATION:
-                return Alert.AlertType.INFORMATION;
-            case WARNING:
-                return Alert.AlertType.WARNING;
-            case CONFIRMATION:
-                return Alert.AlertType.CONFIRMATION;
-            case ERROR:
-                return Alert.AlertType.ERROR;
-            default:
-                throw new IllegalStateException("Dialog type required.");
+        String contentText = null;
+        if (template.getContentTextKey() != null) {
+            contentText = ResourceBundle.getBundle(BUNDLE_NAME).getString(template.getContentTextKey());
         }
-    }
+        alert.setContentText(contentText);
 
-    void show() {
-        build().showAndWait();
+        alert.initOwner(owner);
+        alert.setOnShown(event -> owner.getScene().getRoot().setEffect(new GaussianBlur(15)));
+        alert.setOnHidden(event -> owner.getScene().getRoot().setEffect(null));
+
+        return alert;
     }
 }

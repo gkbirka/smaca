@@ -1,7 +1,7 @@
 package gr.smaca.common.component;
 
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.layout.Container;
+import gr.smaca.common.view.Container;
 import gr.smaca.common.state.StateRegistry;
 
 public class ApplicationContext {

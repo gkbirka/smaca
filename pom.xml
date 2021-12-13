@@ -15,7 +15,7 @@
         <main.class>gr.smaca.Launcher</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Dependency Properties-->
-        <jfx.version>18-ea+7</jfx.version>
+        <jfx.version>18-ea+8</jfx.version>
         <ikonli.version>12.2.0</ikonli.version>
     </properties>
 
@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-materialdesign2-pack</artifactId>
+            <artifactId>ikonli-lineawesome-pack</artifactId>
             <version>${ikonli.version}</version>
         </dependency>
         <!-- MySQL Connector -->
@@ -48,6 +48,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.27</version>
         </dependency>
+        <!-- StAX API -->
+        <!--<dependency>
+            <groupId>javax.xml.stream</groupId>
+            <artifactId>stax-api</artifactId>
+            <version>1.0-2</version>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -63,5 +69,5 @@
             </plugins>
         </pluginManagement>
     </build>
-    
+
 </project>
