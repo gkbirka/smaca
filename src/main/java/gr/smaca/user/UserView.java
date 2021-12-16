@@ -20,7 +20,6 @@ public class UserView extends AbstractView {
 
     @FXML
     private void initialize() {
-
     }
 
     void handle(TagReportEvent event) {

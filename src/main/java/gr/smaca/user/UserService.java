@@ -25,9 +25,9 @@ class UserService {
             resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-                User user = new User(resultSet.getString("epc"),
-                        resultSet.getString("username"),
-                        resultSet.getString("surname"));
+                User user = new User(resultSet.getString("first_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getString("epc"));
 
                 resultSet.close();
                 statement.close();
