@@ -67,6 +67,7 @@ class Reader {
         try {
             reader.get().stop();
             reader.get().disconnect();
+            reader.set(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
