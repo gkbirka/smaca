@@ -27,7 +27,6 @@ public abstract class AbstractView {
         try {
             return loader.load();
         } catch (Exception e) {
-            /*TODO Development only*/
             e.printStackTrace();
         }
 

@@ -12,6 +12,7 @@ public class Props {
     private final String name;
     private final String username;
     private final String password;
+    private final String readerHost;
 
     public Props() {
         Properties properties = load();
@@ -20,6 +21,7 @@ public class Props {
         this.name = properties.getProperty("db.name");
         this.username = properties.getProperty("db.username");
         this.password = properties.getProperty("db.password");
+        this.readerHost = properties.getProperty("reader.host");
     }
 
     private Properties load() {
@@ -59,6 +61,7 @@ public class Props {
         properties.setProperty("db.name", "name");
         properties.setProperty("db.username", "username");
         properties.setProperty("db.password", "password");
+        properties.setProperty("reader.host", "hostname");
         return properties;
     }
 
@@ -80,5 +83,9 @@ public class Props {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getReaderHost() {
+        return readerHost;
     }
 }
