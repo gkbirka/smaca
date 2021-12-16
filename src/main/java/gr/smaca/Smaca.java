@@ -8,6 +8,8 @@ import gr.smaca.common.view.Container;
 import gr.smaca.navigation.NavigationApplicationComponent;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
+import gr.smaca.net.NetworkApplicationComponent;
+import gr.smaca.net.NetworkEvent;
 import gr.smaca.props.PropsApplicationComponent;
 import gr.smaca.reader.ReaderApplicationComponent;
 import javafx.application.Application;
@@ -34,6 +36,7 @@ public class Smaca extends Application {
 
         List<ApplicationComponent> components = new LinkedList<>();
         components.add(new PropsApplicationComponent());
+        components.add(new NetworkApplicationComponent());
         components.add(new ReaderApplicationComponent());
         components.add(new NavigationApplicationComponent());
 
@@ -54,6 +57,7 @@ public class Smaca extends Application {
             scene.getStylesheets().add(styleSheet.toExternalForm());
         }
 
+        stage.setOnCloseRequest(event -> eventBus.emit(new NetworkEvent(NetworkEvent.Type.DISCONNECT)));
         stage.setTitle("Smaca");
         stage.setScene(scene);
         stage.show();

@@ -5,6 +5,7 @@ import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.common.event.EventListener;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
+import gr.smaca.net.NetworkState;
 import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.TagReportEvent;
 
@@ -17,9 +18,10 @@ public class UserApplicationComponent implements ApplicationComponent {
 
     @Override
     public void initComponent(ApplicationContext context) {
+        NetworkState networkState = context.getStateRegistry().getState(NetworkState.class);
         UserState state = context.getStateRegistry().getState(UserState.class);
 
-        UserService service = new UserService();
+        UserService service = new UserService(networkState);
         UserViewModel viewModel = new UserViewModel(context.getEventBus(), state, service);
         UserView view = new UserView(viewModel);
 

@@ -17,7 +17,7 @@ public class Props {
     public Props() {
         Properties properties = load();
         this.host = properties.getProperty("db.host");
-        this.port = properties.getProperty("db.post");
+        this.port = properties.getProperty("db.port");
         this.name = properties.getProperty("db.name");
         this.username = properties.getProperty("db.username");
         this.password = properties.getProperty("db.password");

@@ -13,7 +13,6 @@ public class ReadingPolicy implements TagReportListener {
 
     @Override
     public void onTagReported(ImpinjReader reader, TagReport report) {
-        //TODO service.report(report.getTags());
-        System.out.println(report.getTags());
+        service.report(report.getTags());
     }
 }

@@ -37,11 +37,6 @@ class UserViewModel implements ViewModel {
                 state.userProperty().set(event.getUser());
                 eventBus.emit(event);
             }
-
-            @Override
-            protected void failed() {
-                eventBus.emit(new UserEvent(UserEvent.Type.CONNECTION_ERROR));
-            }
         };
     }
 
