@@ -59,10 +59,10 @@ public class Config {
         Properties config = new Properties();
 
         config.setProperty("db.host", "db_host");
-        config.setProperty("db.port", "3306");
+        config.setProperty("db.port", "db_port");
         config.setProperty("db.name", "db_name");
-        config.setProperty("db.username", "username");
-        config.setProperty("db.password", "password");
+        config.setProperty("db.username", "db_username");
+        config.setProperty("db.password", "db_password");
         config.setProperty("reader.host", "reader_host");
         return config;
     }
