@@ -14,12 +14,12 @@ public class NavigationApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         NavigationState state = context.getStateRegistry().getState(NavigationState.class);
-        Navigation navigation = new Navigation(context);
+        NavigationManager navigationManager = new NavigationManager(context);
 
         EventListener<NavigationEvent> eventListener = event -> {
             if (event.getView() != state.viewProperty().get()) {
                 state.viewProperty().set(event.getView());
-                navigation.handle(event);
+                navigationManager.handle(event);
             }
         };
 

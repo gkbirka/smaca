@@ -1,5 +1,6 @@
 package gr.smaca.user;
 
+import com.impinj.octane.Tag;
 import gr.smaca.common.view.AbstractView;
 import gr.smaca.dialog.DialogBuilder;
 import gr.smaca.dialog.DialogTemplate;
@@ -7,6 +8,8 @@ import gr.smaca.reader.TagReportEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class UserView extends AbstractView {
     private final UserViewModel viewModel;
@@ -23,8 +26,9 @@ public class UserView extends AbstractView {
     }
 
     void handle(TagReportEvent event) {
-        if (event.getTags().size() == 1) {
-            String epc = event.getTags().get(0).getEpc().toString();
+        List<Tag> tags = event.getTags();
+        if (tags.size() == 1) {
+            String epc = tags.get(0).getEpc().toString();
             viewModel.epcProperty().set(epc);
             viewModel.getUser();
         } else {
@@ -43,6 +47,7 @@ public class UserView extends AbstractView {
                 new DialogBuilder().build(DialogTemplate.USER_NOT_FOUND, getStage()).showAndWait();
                 break;
             case CANCEL:
+                //TODO
                 break;
         }
     }

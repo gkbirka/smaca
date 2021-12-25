@@ -5,13 +5,14 @@ import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.common.event.EventBus;
 import gr.smaca.common.state.StateRegistry;
 import gr.smaca.common.view.Container;
+import gr.smaca.config.ConfigApplicationComponent;
+import gr.smaca.database.DatabaseApplicationComponent;
+import gr.smaca.database.DatabaseEvent;
 import gr.smaca.navigation.NavigationApplicationComponent;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
-import gr.smaca.net.NetworkApplicationComponent;
-import gr.smaca.net.NetworkEvent;
-import gr.smaca.props.PropsApplicationComponent;
 import gr.smaca.reader.ReaderApplicationComponent;
+import gr.smaca.reader.ReaderEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -35,8 +36,8 @@ public class Smaca extends Application {
         ApplicationContext context = new ApplicationContext(eventBus, stateRegistry, container);
 
         List<ApplicationComponent> components = new LinkedList<>();
-        components.add(new PropsApplicationComponent());
-        components.add(new NetworkApplicationComponent());
+        components.add(new ConfigApplicationComponent());
+        components.add(new DatabaseApplicationComponent());
         components.add(new ReaderApplicationComponent());
         components.add(new NavigationApplicationComponent());
 
@@ -57,7 +58,10 @@ public class Smaca extends Application {
             scene.getStylesheets().add(styleSheet.toExternalForm());
         }
 
-        stage.setOnCloseRequest(event -> eventBus.emit(new NetworkEvent(NetworkEvent.Type.DISCONNECT)));
+        stage.setOnCloseRequest(event -> {
+            eventBus.emit(new ReaderEvent(ReaderEvent.Type.DISCONNECT));
+            eventBus.emit(new DatabaseEvent(DatabaseEvent.Type.DISCONNECT));
+        });
         stage.setTitle("Smaca");
         stage.setScene(scene);
         stage.show();

@@ -5,6 +5,7 @@ import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.common.event.EventListener;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
+import gr.smaca.user.User;
 import gr.smaca.user.UserState;
 
 public class AuthApplicationComponent implements ApplicationComponent {
@@ -15,10 +16,10 @@ public class AuthApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         UserState userState = context.getStateRegistry().getState(UserState.class);
+        User user = userState.userProperty().get();
 
         AuthService service = new AuthService();
-        AuthViewModel viewModel = new AuthViewModel(context.getEventBus(), service);
-        viewModel.userProperty().set(userState.userProperty().get());
+        AuthViewModel viewModel = new AuthViewModel(user, service, context.getEventBus());
         AuthView view = new AuthView(viewModel);
 
         EventListener<AuthEvent> eventListener = new EventListener<>() {

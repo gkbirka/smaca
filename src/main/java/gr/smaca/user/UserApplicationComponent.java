@@ -3,11 +3,13 @@ package gr.smaca.user;
 import gr.smaca.common.component.ApplicationComponent;
 import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.common.event.EventListener;
+import gr.smaca.database.ConnectionState;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
-import gr.smaca.net.NetworkState;
 import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.TagReportEvent;
+
+import java.sql.Connection;
 
 public class UserApplicationComponent implements ApplicationComponent {
     @Override
@@ -18,14 +20,22 @@ public class UserApplicationComponent implements ApplicationComponent {
 
     @Override
     public void initComponent(ApplicationContext context) {
-        NetworkState networkState = context.getStateRegistry().getState(NetworkState.class);
-        UserState state = context.getStateRegistry().getState(UserState.class);
+        ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
+        Connection connection = connectionState.connectionProperty().get();
+        UserState userState = context.getStateRegistry().getState(UserState.class);
 
-        UserService service = new UserService(networkState);
-        UserViewModel viewModel = new UserViewModel(context.getEventBus(), state, service);
+        UserService service = new UserService(connection);
+        UserViewModel viewModel = new UserViewModel(userState, service, context.getEventBus());
         UserView view = new UserView(viewModel);
 
-        EventListener<TagReportEvent> tagReportEventListener = view::handle;
+        EventListener<TagReportEvent> tagReportEventListener = event -> {
+            context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
+            view.handle(event);
+
+            if (event.getTags().size() > 1) {
+                context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
+            }
+        };
         context.getEventBus().subscribe(TagReportEvent.class, tagReportEventListener);
 
         EventListener<UserEvent> userEventListener = new EventListener<>() {
@@ -34,22 +44,22 @@ public class UserApplicationComponent implements ApplicationComponent {
                 switch (event.getType()) {
                     case CONNECTION_ERROR:
                     case USER_NOT_FOUND:
-                        context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
                         view.handle(event);
+
                         context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
                         break;
                     case USER_FOUND:
-                        context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
                         context.getEventBus().unsubscribe(UserEvent.class, this);
+                        context.getEventBus().unsubscribe(TagReportEvent.class, tagReportEventListener);
                         viewModel.dispose();
 
                         context.getEventBus().emit(new NavigationEvent(View.AUTH));
                         break;
                     case CANCEL:
-                        context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
-                        state.userProperty().set(null);
-
                         view.handle(event);
+
+                        userState.userProperty().set(null);
+                        context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
                         break;
                 }
             }

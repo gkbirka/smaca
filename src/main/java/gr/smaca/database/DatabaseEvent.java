@@ -1,7 +1,8 @@
-package gr.smaca.net;
+package gr.smaca.database;
+
 import gr.smaca.common.event.Event;
 
-public class NetworkEvent implements Event {
+public class DatabaseEvent implements Event {
     public enum Type {
         CONNECT,
         DISCONNECT
@@ -9,7 +10,7 @@ public class NetworkEvent implements Event {
 
     private final Type type;
 
-    public NetworkEvent(Type type) {
+    public DatabaseEvent(Type type) {
         this.type = type;
     }
 

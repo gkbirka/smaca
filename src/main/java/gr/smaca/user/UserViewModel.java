@@ -7,9 +7,10 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 class UserViewModel implements ViewModel {
-    private final EventBus eventBus;
     private final UserState state;
     private final UserService userService;
+    private final EventBus eventBus;
+
     private final SimpleStringProperty epc = new SimpleStringProperty("");
     private final Service<UserEvent> taskService = new Service<>() {
         @Override
@@ -18,10 +19,10 @@ class UserViewModel implements ViewModel {
         }
     };
 
-    UserViewModel(EventBus eventBus, UserState state, UserService userService) {
-        this.eventBus = eventBus;
+    UserViewModel(UserState state, UserService userService, EventBus eventBus) {
         this.state = state;
         this.userService = userService;
+        this.eventBus = eventBus;
     }
 
     private Task<UserEvent> userTask() {

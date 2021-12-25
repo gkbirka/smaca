@@ -8,6 +8,7 @@ import java.util.List;
 class ReaderService {
     private final EventBus eventBus;
 
+    //TODO Remove
     ReaderService(EventBus eventBus) {
         this.eventBus = eventBus;
     }

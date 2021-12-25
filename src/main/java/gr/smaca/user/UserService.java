@@ -1,20 +1,17 @@
 package gr.smaca.user;
 
-import gr.smaca.net.NetworkState;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 class UserService {
-    private final NetworkState networkState;
+    private final Connection connection;
 
-    public UserService(NetworkState networkState) {
-        this.networkState = networkState;
+    UserService(Connection connection) {
+        this.connection = connection;
     }
 
     UserEvent getUser(String epc) {
-        Connection connection = networkState.connectionProperty().get();
         String query = "SELECT * FROM users WHERE epc = '" + epc + "';";
 
         Statement statement;
@@ -40,7 +37,6 @@ class UserService {
                 return new UserEvent(UserEvent.Type.USER_NOT_FOUND);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return new UserEvent(UserEvent.Type.CONNECTION_ERROR);
         }
     }

@@ -3,16 +3,17 @@ package gr.smaca.reader;
 import com.impinj.octane.ImpinjReader;
 import com.impinj.octane.TagReport;
 import com.impinj.octane.TagReportListener;
+import gr.smaca.common.event.EventBus;
 
-public class ReadingPolicy implements TagReportListener {
-    private final ReaderService service;
+class ReadingPolicy implements TagReportListener {
+    private final EventBus eventBus;
 
-    public ReadingPolicy(ReaderService service) {
-        this.service = service;
+    ReadingPolicy(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
     @Override
     public void onTagReported(ImpinjReader reader, TagReport report) {
-        service.report(report.getTags());
+        eventBus.emit(new TagReportEvent(report.getTags()));
     }
 }

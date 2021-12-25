@@ -2,45 +2,49 @@ package gr.smaca.reader;
 
 import com.impinj.octane.*;
 import gr.smaca.common.observable.Property;
-import gr.smaca.props.Props;
-import gr.smaca.props.PropsState;
+import gr.smaca.config.Config;
 
 class Reader {
-    private final ReaderService service;
-    private final Property<PropsState> propertiesState = new Property<>();
+    private final ReadingPolicy policy;
+    private final Config config;
     private final Property<ImpinjReader> reader = new Property<>();
 
-    Reader(ReaderService service) {
-        this.service = service;
+    Reader(ReadingPolicy policy, Config config) {
+        this.policy = policy;
+        this.config = config;
+        initialize();
     }
 
-    private void initialize() throws Exception {
-        Props properties = propertiesState.get().propertiesProperty().get();
-        String hostname = properties.getReaderHost();
+    private void initialize() {
+        try {
+            String hostname = config.getReaderHost();
 
-        if (hostname == null) {
-            throw new Exception("Hostname can't be null");
+            if (hostname == null) {
+                throw new Exception("Hostname can't be null");
+            }
+
+            reader.set(new ImpinjReader());
+            reader.get().connect(hostname);
+
+            Settings settings = reader.get().queryDefaultSettings();
+            ReportConfig config = settings.getReport();
+            config.setIncludeAntennaPortNumber(true);
+            config.setMode(ReportMode.Individual);
+            settings.setRfMode(1002);
+
+            AntennaConfigGroup antennas = settings.getAntennas();
+            antennas.disableAll();
+            antennas.enableById(new short[]{1});
+            antennas.getAntenna((short) 1).setIsMaxRxSensitivity(false);
+            antennas.getAntenna((short) 1).setIsMaxTxPower(false);
+            antennas.getAntenna((short) 1).setTxPowerinDbm(20.0);
+            antennas.getAntenna((short) 1).setRxSensitivityinDbm(-70);
+
+            reader.get().setTagReportListener(policy);
+            reader.get().applySettings(settings);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        reader.set(new ImpinjReader());
-        reader.get().connect(hostname);
-
-        Settings settings = reader.get().queryDefaultSettings();
-        ReportConfig config = settings.getReport();
-        config.setIncludeAntennaPortNumber(true);
-        config.setMode(ReportMode.Individual);
-        settings.setRfMode(1002);
-
-        AntennaConfigGroup antennas = settings.getAntennas();
-        antennas.disableAll();
-        antennas.enableById(new short[]{1});
-        antennas.getAntenna((short) 1).setIsMaxRxSensitivity(false);
-        antennas.getAntenna((short) 1).setIsMaxTxPower(false);
-        antennas.getAntenna((short) 1).setTxPowerinDbm(20.0);
-        antennas.getAntenna((short) 1).setRxSensitivityinDbm(-70);
-
-        reader.get().setTagReportListener(new ReadingPolicy(service));
-        reader.get().applySettings(settings);
     }
 
     void handle(ReaderEvent event) {
@@ -51,12 +55,14 @@ class Reader {
             case STOP_READING:
                 stopReading();
                 break;
+            case DISCONNECT:
+                disconnect();
+                break;
         }
     }
 
     private void startReading() {
         try {
-            initialize();
             reader.get().start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,14 +72,13 @@ class Reader {
     private void stopReading() {
         try {
             reader.get().stop();
-            reader.get().disconnect();
-            reader.set(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    Property<PropsState> propertiesStateProperty() {
-        return propertiesState;
+    private void disconnect() {
+        reader.get().disconnect();
+        reader.set(null);
     }
 }

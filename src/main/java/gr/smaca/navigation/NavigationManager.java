@@ -6,10 +6,10 @@ import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.sidebar.SidebarApplicationComponent;
 import gr.smaca.user.UserApplicationComponent;
 
-class Navigation {
+class NavigationManager {
     private final ApplicationContext context;
 
-    Navigation(ApplicationContext context) {
+    NavigationManager(ApplicationContext context) {
         this.context = context;
     }
 

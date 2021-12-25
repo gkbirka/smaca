@@ -3,15 +3,15 @@ package gr.smaca.auth;
 import gr.smaca.common.event.EventBus;
 import gr.smaca.common.view.ViewModel;
 import gr.smaca.user.User;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 class AuthViewModel implements ViewModel {
-    private final EventBus eventBus;
+    private final User user;
     private final AuthService authService;
-    private final SimpleObjectProperty<User> user = new SimpleObjectProperty<>();
+    private final EventBus eventBus;
+
     private final SimpleStringProperty pin = new SimpleStringProperty("");
     private final Service<AuthEvent> taskService = new Service<>() {
         @Override
@@ -20,26 +20,22 @@ class AuthViewModel implements ViewModel {
         }
     };
 
-    AuthViewModel(EventBus eventBus, AuthService authService) {
-        this.eventBus = eventBus;
+    AuthViewModel(User user, AuthService authService, EventBus eventBus) {
+        this.user = user;
         this.authService = authService;
+        this.eventBus = eventBus;
     }
 
     private Task<AuthEvent> authTask() {
         return new Task<>() {
             @Override
             protected AuthEvent call() {
-                return authService.auth(user.get().getEpc(), pin.get());
+                return authService.auth(user.getEpc(), pin.get());
             }
 
             @Override
             protected void succeeded() {
                 eventBus.emit(this.getValue());
-            }
-
-            @Override
-            protected void failed() {
-                eventBus.emit(new AuthEvent(AuthEvent.Type.CONNECTION_ERROR));
             }
         };
 
@@ -54,10 +50,6 @@ class AuthViewModel implements ViewModel {
 
     void cancel() {
         eventBus.emit(new AuthEvent(AuthEvent.Type.CANCEL));
-    }
-
-    SimpleObjectProperty<User> userProperty() {
-        return user;
     }
 
     SimpleStringProperty pinProperty() {
