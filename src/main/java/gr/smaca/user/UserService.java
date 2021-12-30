@@ -12,7 +12,7 @@ class UserService {
     }
 
     UserEvent getUser(String epc) {
-        String query = "SELECT * FROM users WHERE epc = '" + epc + "';";
+        String query = "SELECT first_name, last_name, epc FROM users WHERE epc = '" + epc + "';";
 
         Statement statement;
         ResultSet resultSet;

@@ -38,7 +38,6 @@ class AuthViewModel implements ViewModel {
                 eventBus.emit(this.getValue());
             }
         };
-
     }
 
     void auth() {
