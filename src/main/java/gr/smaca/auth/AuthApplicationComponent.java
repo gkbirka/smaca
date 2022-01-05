@@ -37,6 +37,7 @@ public class AuthApplicationComponent implements ApplicationComponent {
                         view.handle(event);
                         break;
                     case CONNECT:
+                        context.getContainer().setCenter(null);
                         viewModel.dispose();
 
                         context.getEventBus().emit(new NavigationEvent(View.SIDEBAR));
