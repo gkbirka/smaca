@@ -21,19 +21,7 @@ public class DatabaseApplicationComponent implements ApplicationComponent {
 
         DatabaseManager databaseManager = new DatabaseManager(connectionState, config);
 
-        EventListener<DatabaseEvent> eventListener = new EventListener<>() {
-            @Override
-            public void handle(DatabaseEvent event) {
-                databaseManager.handle(event);
-
-                if (event.getType() == DatabaseEvent.Type.DISCONNECT) {
-                    context.getEventBus().unsubscribe(DatabaseEvent.class, this);
-                    context.getStateRegistry().unregister(ConnectionState.class);
-                }
-            }
-        };
-        context.getEventBus().subscribe(DatabaseEvent.class, eventListener);
-
+        context.getEventBus().subscribe(DatabaseEvent.class, databaseManager::handle);
         context.getEventBus().emit(new DatabaseEvent(DatabaseEvent.Type.CONNECT));
     }
 }

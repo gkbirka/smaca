@@ -56,6 +56,7 @@ class Reader {
                 stopReading();
                 break;
             case DISCONNECT:
+                stopReading();
                 disconnect();
                 break;
         }

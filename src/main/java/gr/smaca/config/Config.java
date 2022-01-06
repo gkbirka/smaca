@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Config {
-    private static final String CONFIG_PATH = System.getProperty("user.home") + "/.smaca";
+    private static final String FOLDER_PATH = System.getProperty("user.home") + "/.smaca";
     //Database properties
     private final String databaseHost;
     private final String databasePort;
@@ -27,7 +27,7 @@ public class Config {
     }
 
     private Properties load() {
-        try (InputStream input = new FileInputStream(CONFIG_PATH + "/config.properties")) {
+        try (InputStream input = new FileInputStream(FOLDER_PATH + "/config.properties")) {
             Properties properties = new Properties();
 
             properties.load(input);
@@ -40,12 +40,12 @@ public class Config {
 
     private void save() {
         try {
-            Files.createDirectories(Paths.get(CONFIG_PATH));
+            Files.createDirectories(Paths.get(FOLDER_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try (OutputStream output = new FileOutputStream(CONFIG_PATH + "/config.properties")) {
+        try (OutputStream output = new FileOutputStream(FOLDER_PATH + "/config.properties")) {
             Properties properties = defaults();
 
             properties.store(output, null);
