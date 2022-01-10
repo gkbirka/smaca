@@ -15,7 +15,7 @@
         <main.class>gr.smaca.Launcher</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Dependency Properties-->
-        <jfx.version>18-ea+8</jfx.version>
+        <jfx.version>18-ea+9</jfx.version>
         <ikonli.version>12.2.0</ikonli.version>
     </properties>
 
@@ -47,6 +47,14 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.27</version>
+        </dependency>
+        <!-- Octane SDK -->
+        <dependency>
+            <groupId>com.impinj</groupId>
+            <artifactId>octane-sdk</artifactId>
+            <version>3.7.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/octane-sdk-3.7.0.jar</systemPath>
         </dependency>
     </dependencies>
 
