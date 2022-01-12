@@ -8,6 +8,8 @@ import gr.smaca.common.view.Container;
 import gr.smaca.config.ConfigApplicationComponent;
 import gr.smaca.database.DatabaseApplicationComponent;
 import gr.smaca.database.DatabaseEvent;
+import gr.smaca.dialog.DialogBuilder;
+import gr.smaca.dialog.DialogTemplate;
 import gr.smaca.navigation.NavigationApplicationComponent;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
@@ -15,6 +17,7 @@ import gr.smaca.reader.ReaderApplicationComponent;
 import gr.smaca.reader.ReaderEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -59,11 +62,22 @@ public class Smaca extends Application {
         }
 
         stage.setOnCloseRequest(event -> {
-            eventBus.emit(new ReaderEvent(ReaderEvent.Type.DISCONNECT));
-            eventBus.emit(new DatabaseEvent(DatabaseEvent.Type.DISCONNECT));
+            if (confirmClose(stage)) {
+
+                eventBus.emit(new ReaderEvent(ReaderEvent.Type.DISCONNECT));
+                eventBus.emit(new DatabaseEvent(DatabaseEvent.Type.DISCONNECT));
+            } else {
+                event.consume();
+            }
         });
         stage.setTitle("Smaca");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private boolean confirmClose(Stage stage) {
+        return new DialogBuilder().build(DialogTemplate.CONFIRM_CLOSE, stage)
+                .showAndWait()
+                .orElse(null) == ButtonType.OK;
     }
 }

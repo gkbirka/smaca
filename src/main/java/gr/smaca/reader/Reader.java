@@ -44,6 +44,7 @@ class Reader {
             reader.get().applySettings(settings);
         } catch (Exception e) {
             e.printStackTrace();
+            reader.set(null);
         }
     }
 
@@ -64,7 +65,9 @@ class Reader {
 
     private void startReading() {
         try {
-            reader.get().start();
+            if (reader.isPresent()) {
+                reader.get().start();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,14 +75,19 @@ class Reader {
 
     private void stopReading() {
         try {
-            reader.get().stop();
+            if (reader.isPresent()) {
+                reader.get().stop();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void disconnect() {
-        reader.get().disconnect();
-        reader.set(null);
+        if (reader.isPresent()) {
+
+            reader.get().disconnect();
+            reader.set(null);
+        }
     }
 }

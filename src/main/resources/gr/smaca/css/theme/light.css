@@ -78,6 +78,18 @@ TextFlow > * {
     -fx-background-color: #24272c;
 }
 
+.button:cancel {
+    -fx-background-color: #bdbdbd;
+}
+
+.button:cancel:hover {
+    -fx-background-color: #a4a2ab;
+}
+
+.button:cancel:armed {
+    -fx-background-color: #bdbdbd;
+}
+
 .circle {
     -fx-background-color: #deeffe;
     -fx-border-color: #007aff;
