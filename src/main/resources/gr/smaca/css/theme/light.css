@@ -44,7 +44,7 @@ TextFlow > * {
     -fx-icon-color: #dadada;
 }
 
-.icon-sidebar-selected {
+.button-sidebar-selected > .label > .ikonli-font-icon {
     -fx-icon-color: #007aff;
 }
 

@@ -3,24 +3,22 @@ package gr.smaca.sidebar;
 import gr.smaca.common.view.AbstractView;
 import gr.smaca.navigation.View;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 public class SidebarView extends AbstractView {
     private final SidebarViewModel viewModel;
     @FXML
-    private Button basket;
+    private ScrollPane root;
     @FXML
-    private FontIcon basketIcon;
+    private Button basket;
     @FXML
     private Button history;
     @FXML
-    private FontIcon historyIcon;
-    @FXML
     private Button profile;
-    @FXML
-    private FontIcon profileIcon;
     @FXML
     private Button disconnect;
 
@@ -45,46 +43,29 @@ public class SidebarView extends AbstractView {
     }
 
     private void navigate(View view) {
-        String buttonStyleClass = "button-sidebar-selected";
-        String iconStyleClass = "icon-sidebar-selected";
         switch (view) {
             case BASKET:
-                basket.getStyleClass().add(buttonStyleClass);
-                basketIcon.getStyleClass().add(iconStyleClass);
-
-                history.getStyleClass().remove(buttonStyleClass);
-                historyIcon.getStyleClass().remove(iconStyleClass);
-
-                profile.getStyleClass().remove(buttonStyleClass);
-                profileIcon.getStyleClass().remove(iconStyleClass);
-
-                viewModel.navigate(View.BASKET);
+                select(basket);
                 break;
             case HISTORY:
-                history.getStyleClass().add(buttonStyleClass);
-                historyIcon.getStyleClass().add(iconStyleClass);
-
-                basket.getStyleClass().remove(buttonStyleClass);
-                basketIcon.getStyleClass().remove(iconStyleClass);
-
-                profile.getStyleClass().remove(buttonStyleClass);
-                profileIcon.getStyleClass().remove(iconStyleClass);
-
-                viewModel.navigate(View.HISTORY);
+                select(history);
                 break;
             case PROFILE:
-                profile.getStyleClass().add(buttonStyleClass);
-                profileIcon.getStyleClass().add(iconStyleClass);
-
-                basket.getStyleClass().remove(buttonStyleClass);
-                basketIcon.getStyleClass().remove(iconStyleClass);
-
-                history.getStyleClass().remove(buttonStyleClass);
-                historyIcon.getStyleClass().remove(iconStyleClass);
-
-                viewModel.navigate(View.PROFILE);
+                select(profile);
                 break;
         }
+
+        viewModel.navigate(view);
+    }
+
+    private void select(Button pressed) {
+        String styleClass = "button-sidebar-selected";
+
+        for (Node button : ((VBox) root.getContent()).getChildren()) {
+            button.getStyleClass().remove(styleClass);
+        }
+
+        pressed.getStyleClass().add(styleClass);
     }
 
     @Override
