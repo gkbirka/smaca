@@ -16,7 +16,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Dependency Properties-->
         <jfx.version>18-ea+9</jfx.version>
-        <ikonli.version>12.2.0</ikonli.version>
+        <ikonli.version>12.3.0</ikonli.version>
+        <mysql.version>8.0.28</mysql.version>
     </properties>
 
     <dependencies>
@@ -46,7 +47,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.27</version>
+            <version>${mysql.version}</version>
         </dependency>
         <!-- Octane SDK -->
         <dependency>

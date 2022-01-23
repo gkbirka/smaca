@@ -18,6 +18,7 @@ import gr.smaca.reader.ReaderEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -28,6 +29,13 @@ public class Smaca extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void init() {
+        Font.loadFont(getClass().getResourceAsStream("/gr/smaca/font/Manrope-Medium.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/gr/smaca/font/Manrope-Bold.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/gr/smaca/font/Manrope-ExtraBold.ttf"), 14);
     }
 
     @Override
