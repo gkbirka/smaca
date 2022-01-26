@@ -15,7 +15,7 @@
         <main.class>gr.smaca.Launcher</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Dependency Properties-->
-        <jfx.version>18-ea+9</jfx.version>
+        <jfx.version>18-ea+10</jfx.version>
         <ikonli.version>12.3.0</ikonli.version>
         <mysql.version>8.0.28</mysql.version>
     </properties>

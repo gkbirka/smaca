@@ -1,32 +1,38 @@
 package gr.smaca.dialog;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 
-import java.util.ResourceBundle;
-
 public class DialogBuilder {
-    private static final String BUNDLE_NAME = "gr.smaca.i18n.bundle";
-
     public DialogBuilder() {
     }
 
-    public Alert build(DialogTemplate template, Stage owner) {
-        Alert alert = new Alert(template.getType());
+    public Alert build(Dialog dialog, Stage owner) {
+        DialogProperties properties = dialog.getProperties();
+
+        Alert alert = new Alert(properties.getType());
         alert.setTitle(owner.getTitle());
 
-        String headerText = null;
-        if (template.getHeaderTextKey() != null) {
-            headerText = ResourceBundle.getBundle(BUNDLE_NAME).getString(template.getHeaderTextKey());
-        }
-        alert.setHeaderText(headerText);
+        alert.setHeaderText(properties.getHeaderText());
+        alert.setContentText(properties.getContentText());
 
-        String contentText = null;
-        if (template.getContentTextKey() != null) {
-            contentText = ResourceBundle.getBundle(BUNDLE_NAME).getString(template.getContentTextKey());
+        ObservableList<ButtonType> buttons = properties.getButtons();
+        if (buttons != null) {
+            alert.getButtonTypes().setAll(buttons);
         }
-        alert.setContentText(contentText);
+
+        alert.setResultConverter(button -> {
+            switch (button.getButtonData()) {
+                case OK_DONE:
+                    return ButtonType.OK;
+                case CANCEL_CLOSE:
+                default:
+                    return ButtonType.CANCEL;
+            }
+        });
 
         alert.initOwner(owner);
         alert.setOnShown(event -> owner.getScene().getRoot().setEffect(new GaussianBlur(15)));

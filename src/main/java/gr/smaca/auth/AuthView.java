@@ -1,8 +1,8 @@
 package gr.smaca.auth;
 
 import gr.smaca.common.view.AbstractView;
+import gr.smaca.dialog.Dialog;
 import gr.smaca.dialog.DialogBuilder;
-import gr.smaca.dialog.DialogTemplate;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -100,11 +100,11 @@ public class AuthView extends AbstractView {
         switch (event.getType()) {
             case CONNECTION_ERROR:
                 clear();
-                new DialogBuilder().build(DialogTemplate.CONNECTION_ERROR, getStage()).showAndWait();
+                new DialogBuilder().build(Dialog.CONNECTION_ERROR, getStage()).showAndWait();
                 break;
             case WRONG_PIN:
                 clear();
-                new DialogBuilder().build(DialogTemplate.WRONG_PIN, getStage()).showAndWait();
+                new DialogBuilder().build(Dialog.WRONG_PIN, getStage()).showAndWait();
                 break;
         }
     }

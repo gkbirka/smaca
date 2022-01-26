@@ -8,8 +8,8 @@ import gr.smaca.common.view.Container;
 import gr.smaca.config.ConfigApplicationComponent;
 import gr.smaca.database.DatabaseApplicationComponent;
 import gr.smaca.database.DatabaseEvent;
+import gr.smaca.dialog.Dialog;
 import gr.smaca.dialog.DialogBuilder;
-import gr.smaca.dialog.DialogTemplate;
 import gr.smaca.navigation.NavigationApplicationComponent;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
@@ -84,7 +84,7 @@ public class Smaca extends Application {
     }
 
     private boolean confirmClose(Stage stage) {
-        return new DialogBuilder().build(DialogTemplate.CONFIRM_CLOSE, stage)
+        return new DialogBuilder().build(Dialog.CONFIRM_CLOSE, stage)
                 .showAndWait()
                 .orElse(null) == ButtonType.OK;
     }
