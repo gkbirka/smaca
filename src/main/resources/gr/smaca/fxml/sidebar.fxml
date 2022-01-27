@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<ScrollPane fx:id="root" fitToHeight="true" fitToWidth="true" styleClass="container-primary" stylesheets="@../css/embedded/sidebar.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.smaca.sidebar.SidebarView">
+<ScrollPane fx:id="root" fitToHeight="true" fitToWidth="true" styleClass="container-primary" stylesheets="@../css/embedded/sidebar.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.smaca.sidebar.SidebarView">
    <content>
       <VBox fx:id="background" styleClass="container-secondary">
          <children>
