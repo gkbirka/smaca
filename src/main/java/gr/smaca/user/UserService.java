@@ -37,6 +37,8 @@ class UserService {
                 return new UserEvent(UserEvent.Type.USER_NOT_FOUND);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new UserEvent(UserEvent.Type.CONNECTION_ERROR);
         }
     }

@@ -32,7 +32,9 @@ public class Config {
 
             properties.load(input);
             return properties;
-        } catch (IOException ex) {
+        } catch (IOException e) {
+            e.printStackTrace();
+
             save();
             return defaults();
         }

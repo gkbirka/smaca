@@ -34,6 +34,8 @@ class AuthService {
                 return new AuthEvent(AuthEvent.Type.WRONG_PIN);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new AuthEvent(AuthEvent.Type.CONNECTION_ERROR);
         }
     }
