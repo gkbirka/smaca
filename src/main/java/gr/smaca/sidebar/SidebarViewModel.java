@@ -6,10 +6,10 @@ import gr.smaca.common.view.ViewModel;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
 
-public class SidebarViewModel implements ViewModel {
+class SidebarViewModel implements ViewModel {
     private final EventBus eventBus;
 
-    public SidebarViewModel(EventBus eventBus) {
+    SidebarViewModel(EventBus eventBus) {
         this.eventBus = eventBus;
     }
 

@@ -1,6 +1,5 @@
 package gr.smaca.reader;
 
-import com.impinj.octane.Tag;
 import gr.smaca.common.event.Event;
 
 import java.util.List;

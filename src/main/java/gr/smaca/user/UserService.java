@@ -12,7 +12,7 @@ class UserService {
     }
 
     UserEvent getUser(String epc) {
-        String query = "SELECT first_name, last_name, epc FROM users WHERE epc = '" + epc + "';";
+        String query = "SELECT user_epc, user_first_name, user_last_name FROM users WHERE user_epc = '" + epc + "';";
 
         Statement statement;
         ResultSet resultSet;
@@ -22,9 +22,10 @@ class UserService {
             resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-                User user = new User(resultSet.getString("first_name"),
-                        resultSet.getString("last_name"),
-                        resultSet.getString("epc"));
+                User user = new User(
+                        resultSet.getString("epc"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name"));
 
                 resultSet.close();
                 statement.close();

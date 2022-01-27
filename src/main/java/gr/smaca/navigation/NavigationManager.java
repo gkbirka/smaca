@@ -1,6 +1,7 @@
 package gr.smaca.navigation;
 
 import gr.smaca.auth.AuthApplicationComponent;
+import gr.smaca.basket.BasketApplicationComponent;
 import gr.smaca.common.component.ApplicationComponent;
 import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.sidebar.SidebarApplicationComponent;
@@ -26,7 +27,7 @@ class NavigationManager {
                 component = new SidebarApplicationComponent();
                 break;
             case BASKET:
-                //TODO
+                component = new BasketApplicationComponent();
                 break;
             case HISTORY:
                 //TODO

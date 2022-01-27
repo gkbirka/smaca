@@ -22,7 +22,7 @@ public class SidebarView extends AbstractView {
     @FXML
     private Button disconnect;
 
-    public SidebarView(SidebarViewModel viewModel) {
+    SidebarView(SidebarViewModel viewModel) {
         super("/gr/smaca/fxml/sidebar.fxml");
         this.viewModel = viewModel;
     }

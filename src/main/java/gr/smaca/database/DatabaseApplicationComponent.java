@@ -2,7 +2,6 @@ package gr.smaca.database;
 
 import gr.smaca.common.component.ApplicationComponent;
 import gr.smaca.common.component.ApplicationContext;
-import gr.smaca.common.event.EventListener;
 import gr.smaca.config.Config;
 import gr.smaca.config.ConfigState;
 

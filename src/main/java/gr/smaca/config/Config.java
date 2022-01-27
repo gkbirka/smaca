@@ -16,7 +16,7 @@ public class Config {
     //Reader properties
     private final String readerHost;
 
-    public Config() {
+    Config() {
         Properties config = load();
         this.databaseHost = config.getProperty("db.host");
         this.databasePort = config.getProperty("db.port");

@@ -7,12 +7,12 @@ import java.sql.Statement;
 class AuthService {
     private final Connection connection;
 
-    public AuthService(Connection connection) {
+    AuthService(Connection connection) {
         this.connection = connection;
     }
 
     AuthEvent auth(String epc, String pin) {
-        String query = "SELECT first_name, last_name, epc FROM users WHERE epc = '" + epc + "' AND pin = '" + pin + "';";
+        String query = "SELECT user_first_name, user_last_name, user_epc FROM users WHERE user_epc = '" + epc + "' AND user_pin = '" + pin + "';";
 
         Statement statement;
         ResultSet resultSet;

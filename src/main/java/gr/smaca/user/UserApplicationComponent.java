@@ -55,18 +55,11 @@ public class UserApplicationComponent implements ApplicationComponent {
 
                         context.getEventBus().emit(new NavigationEvent(View.AUTH));
                         break;
-                    case CANCEL:
-                        view.handle(event);
-
-                        userState.userProperty().set(null);
-                        context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
-                        break;
                 }
             }
         };
         context.getEventBus().subscribe(UserEvent.class, userEventListener);
 
-        context.getContainer().setLeft(null);
         context.getContainer().setCenter(view.load());
         context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
     }

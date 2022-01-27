@@ -34,7 +34,8 @@ class DatabaseManager {
                     + config.getDatabasePort() + "/"
                     + config.getDatabaseName();
 
-            connection.set(DriverManager.getConnection(connectionString,
+            connection.set(DriverManager.getConnection(
+                    connectionString,
                     config.getDatabaseUsername(),
                     config.getDatabasePassword()));
 

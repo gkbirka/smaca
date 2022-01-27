@@ -19,7 +19,7 @@ public class AuthView extends AbstractView {
     @FXML
     private ScrollPane root;
     @FXML
-    private HBox dotBox;
+    private HBox dots;
     @FXML
     private GridPane numpad;
     @FXML
@@ -59,7 +59,7 @@ public class AuthView extends AbstractView {
     }
 
     private void fillDot(int length) {
-        dotBox.getChildren().get(length - 1).getStyleClass().add("dot-filled");
+        dots.getChildren().get(length - 1).getStyleClass().add("dot-filled");
     }
 
     private void cancel() {
@@ -70,7 +70,7 @@ public class AuthView extends AbstractView {
     private void clear() {
         root.requestFocus();
 
-        for (Node dot : dotBox.getChildren()) {
+        for (Node dot : dots.getChildren()) {
             dot.getStyleClass().remove("dot-filled");
         }
 

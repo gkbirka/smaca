@@ -83,7 +83,7 @@ public class Smaca extends Application {
         stage.show();
     }
 
-    private boolean confirmClose(Stage stage) {
+    private static boolean confirmClose(Stage stage) {
         return new DialogBuilder().build(Dialog.CONFIRM_CLOSE, stage)
                 .showAndWait()
                 .orElse(null) == ButtonType.OK;

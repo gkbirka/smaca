@@ -17,7 +17,7 @@ public class AuthEvent implements Event {
         this.type = type;
     }
 
-    Type getType() {
+    public Type getType() {
         return type;
     }
 }

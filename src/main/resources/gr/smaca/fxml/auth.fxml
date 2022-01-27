@@ -27,7 +27,7 @@
                      </children>
                   </TextFlow>
                   <Label maxWidth="1.7976931348623157E308" styleClass="insets-label" />
-                  <HBox fx:id="dotBox" mouseTransparent="true">
+                  <HBox fx:id="dots" mouseTransparent="true">
                      <children>
                         <Button fx:id="firstDot" focusTraversable="false" mnemonicParsing="false" styleClass="dot">
                            <HBox.margin>

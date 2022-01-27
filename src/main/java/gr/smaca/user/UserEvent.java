@@ -6,8 +6,7 @@ class UserEvent implements Event {
     enum Type {
         CONNECTION_ERROR,
         USER_FOUND,
-        USER_NOT_FOUND,
-        CANCEL
+        USER_NOT_FOUND
     }
 
     private final UserEvent.Type type;
@@ -27,7 +26,7 @@ class UserEvent implements Event {
         return type;
     }
 
-    public User getUser() {
+    User getUser() {
         return user;
     }
 }

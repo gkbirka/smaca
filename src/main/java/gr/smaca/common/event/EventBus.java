@@ -1,13 +1,13 @@
 package gr.smaca.common.event;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @SuppressWarnings("rawtypes,unchecked")
 public class EventBus {
-    private final Map<Class, List<EventListener>> listeners = new HashMap<>();
+    private final Map<Class, CopyOnWriteArrayList<EventListener>> listeners = new HashMap<>();
 
     public void emit(Event event) {
         Class eventClass = event.getClass();
@@ -20,7 +20,7 @@ public class EventBus {
 
     public <T extends Event> void subscribe(Class<T> eventClass, EventListener<T> listener) {
         if (!listeners.containsKey(eventClass)) {
-            listeners.put(eventClass, new LinkedList<>());
+            listeners.put(eventClass, new CopyOnWriteArrayList<>());
         }
 
         listeners.get(eventClass).add(listener);
