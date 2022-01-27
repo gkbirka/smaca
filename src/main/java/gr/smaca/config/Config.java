@@ -52,7 +52,6 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private Properties defaults() {

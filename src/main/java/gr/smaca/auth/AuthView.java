@@ -6,25 +6,22 @@ import gr.smaca.dialog.DialogBuilder;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class AuthView extends AbstractView {
     private final AuthViewModel viewModel;
+    private final int pinMaxLength = 4;
     @FXML
     private ScrollPane root;
     @FXML
+    private HBox dotBox;
+    @FXML
     private GridPane numpad;
-    @FXML
-    private Button firstDot;
-    @FXML
-    private Button secondDot;
-    @FXML
-    private Button thirdDot;
-    @FXML
-    private Button fourthDot;
     @FXML
     private Button cancel;
     @FXML
@@ -37,7 +34,7 @@ public class AuthView extends AbstractView {
 
     @FXML
     private void initialize() {
-        numpad.disableProperty().bind(viewModel.pinProperty().length().isEqualTo(4));
+        numpad.disableProperty().bind(viewModel.pinProperty().length().isEqualTo(pinMaxLength));
         cancel.setOnAction(event -> cancel());
         clear.setOnAction(event -> clear());
     }
@@ -47,7 +44,7 @@ public class AuthView extends AbstractView {
         root.requestFocus();
 
         SimpleStringProperty pin = viewModel.pinProperty();
-        if (pin.get().length() >= 4) {
+        if (pin.get().length() >= pinMaxLength) {
             return;
         }
 
@@ -56,27 +53,13 @@ public class AuthView extends AbstractView {
 
         fillDot(pin.get().length());
 
-        if (pin.get().length() == 4) {
+        if (pin.get().length() == pinMaxLength) {
             viewModel.auth();
         }
     }
 
     private void fillDot(int length) {
-        String styleClass = "dot-filled";
-        switch (length) {
-            case 1:
-                firstDot.getStyleClass().add(styleClass);
-                break;
-            case 2:
-                secondDot.getStyleClass().add(styleClass);
-                break;
-            case 3:
-                thirdDot.getStyleClass().add(styleClass);
-                break;
-            case 4:
-                fourthDot.getStyleClass().add(styleClass);
-                break;
-        }
+        dotBox.getChildren().get(length - 1).getStyleClass().add("dot-filled");
     }
 
     private void cancel() {
@@ -87,23 +70,20 @@ public class AuthView extends AbstractView {
     private void clear() {
         root.requestFocus();
 
-        String styleClass = "dot-filled";
-        firstDot.getStyleClass().remove(styleClass);
-        secondDot.getStyleClass().remove(styleClass);
-        thirdDot.getStyleClass().remove(styleClass);
-        fourthDot.getStyleClass().remove(styleClass);
+        for (Node dot : dotBox.getChildren()) {
+            dot.getStyleClass().remove("dot-filled");
+        }
 
         viewModel.pinProperty().set("");
     }
 
     void handle(AuthEvent event) {
+        clear();
         switch (event.getType()) {
             case CONNECTION_ERROR:
-                clear();
                 new DialogBuilder().build(Dialog.CONNECTION_ERROR, getStage()).showAndWait();
                 break;
             case WRONG_PIN:
-                clear();
                 new DialogBuilder().build(Dialog.WRONG_PIN, getStage()).showAndWait();
                 break;
         }
