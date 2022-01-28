@@ -35,7 +35,7 @@ class UserViewModel implements ViewModel {
             @Override
             protected void succeeded() {
                 UserEvent event = this.getValue();
-                state.userProperty().set(event.getUser());
+                state.setUser(event.getUser());
                 eventBus.emit(event);
             }
         };

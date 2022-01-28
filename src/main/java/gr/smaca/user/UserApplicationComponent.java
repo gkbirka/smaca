@@ -21,7 +21,7 @@ public class UserApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
-        Connection connection = connectionState.connectionProperty().get();
+        Connection connection = connectionState.getConnection();
         UserState userState = context.getStateRegistry().getState(UserState.class);
 
         UserService service = new UserService(connection);

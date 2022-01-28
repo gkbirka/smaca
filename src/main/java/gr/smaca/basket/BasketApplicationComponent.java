@@ -18,7 +18,7 @@ public class BasketApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
-        Connection connection = connectionState.connectionProperty().get();
+        Connection connection = connectionState.getConnection();
 
         BasketService service = new BasketService(connection);
         BasketViewModel viewModel = new BasketViewModel(service, context.getEventBus());

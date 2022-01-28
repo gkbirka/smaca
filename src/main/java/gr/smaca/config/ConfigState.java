@@ -1,12 +1,18 @@
 package gr.smaca.config;
 
-import gr.smaca.common.observable.Property;
 import gr.smaca.common.state.State;
 
 public class ConfigState implements State {
-    private final Property<Config> config = new Property<>();
+    private Config config;
 
-    public Property<Config> configProperty() {
+    ConfigState() {
+    }
+
+    public Config getConfig() {
         return config;
+    }
+
+    void setConfig(Config config) {
+        this.config = config;
     }
 }

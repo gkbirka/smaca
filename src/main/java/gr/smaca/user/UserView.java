@@ -21,10 +21,6 @@ public class UserView extends AbstractView {
         this.viewModel = viewModel;
     }
 
-    @FXML
-    private void initialize() {
-    }
-
     void handle(TagReportEvent event) {
         List<Tag> tags = event.getTags();
         if (tags.size() == 1) {

@@ -15,7 +15,7 @@ public class DatabaseApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConfigState configState = context.getStateRegistry().getState(ConfigState.class);
-        Config config = configState.configProperty().get();
+        Config config = configState.getConfig();
         ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
 
         DatabaseManager databaseManager = new DatabaseManager(connectionState, config);

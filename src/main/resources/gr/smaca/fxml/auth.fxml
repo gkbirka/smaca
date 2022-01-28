@@ -20,13 +20,13 @@
          <children>
             <VBox fx:id="form" styleClass="container-primary" VBox.vgrow="ALWAYS">
                <children>
-                  <Label maxWidth="1.7976931348623157E308" styleClass="insets-label" />
+                  <Label maxWidth="1.7976931348623157E308" />
                   <TextFlow fx:id="promptTextFlow">
                      <children>
                         <Text fx:id="promptText" strokeType="OUTSIDE" strokeWidth="0.0" text="%auth.label.prompt" />
                      </children>
                   </TextFlow>
-                  <Label maxWidth="1.7976931348623157E308" styleClass="insets-label" />
+                  <Label maxWidth="1.7976931348623157E308" />
                   <HBox fx:id="dots" mouseTransparent="true">
                      <children>
                         <Button fx:id="firstDot" focusTraversable="false" mnemonicParsing="false" styleClass="dot">
@@ -51,7 +51,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Label maxWidth="1.7976931348623157E308" styleClass="insets-label" />
+                  <Label maxWidth="1.7976931348623157E308" />
                   <GridPane fx:id="numpad" alignment="CENTER" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.333" />

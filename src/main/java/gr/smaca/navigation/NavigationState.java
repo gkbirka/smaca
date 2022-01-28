@@ -1,12 +1,18 @@
 package gr.smaca.navigation;
 
-import gr.smaca.common.observable.Property;
 import gr.smaca.common.state.State;
 
 class NavigationState implements State {
-    private final Property<View> view = new Property<>();
+    private View view;
 
-    Property<View> viewProperty() {
+    NavigationState() {
+    }
+
+    View getView() {
         return view;
+    }
+
+    void setView(View view) {
+        this.view = view;
     }
 }

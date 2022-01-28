@@ -1,14 +1,20 @@
 package gr.smaca.database;
 
-import gr.smaca.common.observable.Property;
 import gr.smaca.common.state.State;
 
 import java.sql.Connection;
 
 public class ConnectionState implements State {
-    private final Property<Connection> connection = new Property<>();
+    private Connection connection;
 
-    public Property<Connection> connectionProperty() {
+    ConnectionState() {
+    }
+
+    public Connection getConnection() {
         return connection;
+    }
+
+    void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

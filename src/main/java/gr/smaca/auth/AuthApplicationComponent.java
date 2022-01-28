@@ -19,10 +19,10 @@ public class AuthApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
-        Connection connection = connectionState.connectionProperty().get();
+        Connection connection = connectionState.getConnection();
 
         UserState userState = context.getStateRegistry().getState(UserState.class);
-        User user = userState.userProperty().get();
+        User user = userState.getUser();
 
         AuthService service = new AuthService(connection);
         AuthViewModel viewModel = new AuthViewModel(user, service, context.getEventBus());

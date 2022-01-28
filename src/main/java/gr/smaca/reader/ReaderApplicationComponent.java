@@ -13,7 +13,7 @@ public class ReaderApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConfigState configState = context.getStateRegistry().getState(ConfigState.class);
-        Config config = configState.configProperty().get();
+        Config config = configState.getConfig();
 
         ReadingPolicy policy = new ReadingPolicy(context.getEventBus());
         Reader reader = new Reader(policy, config);

@@ -48,8 +48,8 @@ public class Smaca extends Application {
 
         List<ApplicationComponent> components = new LinkedList<>();
         components.add(new ConfigApplicationComponent());
-        components.add(new DatabaseApplicationComponent());
         components.add(new ReaderApplicationComponent());
+        components.add(new DatabaseApplicationComponent());
         components.add(new NavigationApplicationComponent());
 
         for (ApplicationComponent component : components) {

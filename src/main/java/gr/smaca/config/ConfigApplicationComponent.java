@@ -14,6 +14,6 @@ public class ConfigApplicationComponent implements ApplicationComponent {
     public void initComponent(ApplicationContext context) {
         ConfigState state = context.getStateRegistry().getState(ConfigState.class);
         Config config = new Config();
-        state.configProperty().set(config);
+        state.setConfig(config);
     }
 }

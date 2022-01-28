@@ -17,8 +17,8 @@ public class NavigationApplicationComponent implements ApplicationComponent {
         NavigationManager navigationManager = new NavigationManager(context);
 
         EventListener<NavigationEvent> eventListener = event -> {
-            if (event.getView() != state.viewProperty().get()) {
-                state.viewProperty().set(event.getView());
+            if (event.getView() != state.getView()) {
+                state.setView(event.getView());
                 navigationManager.handle(event);
             }
         };

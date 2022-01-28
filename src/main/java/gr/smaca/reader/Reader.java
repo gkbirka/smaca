@@ -1,13 +1,12 @@
 package gr.smaca.reader;
 
 import com.impinj.octane.*;
-import gr.smaca.common.observable.Property;
 import gr.smaca.config.Config;
 
 class Reader {
     private final ReadingPolicy policy;
     private final Config config;
-    private final Property<ImpinjReader> reader = new Property<>();
+    private ImpinjReader reader;
 
     Reader(ReadingPolicy policy, Config config) {
         this.policy = policy;
@@ -20,13 +19,13 @@ class Reader {
             String hostname = config.getReaderHost();
 
             if (hostname == null) {
-                throw new Exception("Hostname can't be null");
+                throw new Exception("Reader's hostname can't be null.");
             }
 
-            reader.set(new ImpinjReader());
-            reader.get().connect(hostname);
+            reader = new ImpinjReader();
+            reader.connect(hostname);
 
-            Settings settings = reader.get().queryDefaultSettings();
+            Settings settings = reader.queryDefaultSettings();
             ReportConfig config = settings.getReport();
             config.setIncludeAntennaPortNumber(true);
             config.setMode(ReportMode.Individual);
@@ -40,11 +39,12 @@ class Reader {
             antennas.getAntenna((short) 1).setTxPowerinDbm(20.0);
             antennas.getAntenna((short) 1).setRxSensitivityinDbm(-70);
 
-            reader.get().setTagReportListener(policy);
-            reader.get().applySettings(settings);
+            reader.setTagReportListener(policy);
+            reader.applySettings(settings);
         } catch (Exception e) {
             e.printStackTrace();
-            reader.set(null);
+
+            reader = null;
         }
     }
 
@@ -65,8 +65,8 @@ class Reader {
 
     private void startReading() {
         try {
-            if (reader.isPresent()) {
-                reader.get().start();
+            if (reader != null) {
+                reader.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,8 +75,8 @@ class Reader {
 
     private void stopReading() {
         try {
-            if (reader.isPresent()) {
-                reader.get().stop();
+            if (reader != null) {
+                reader.stop();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,10 +84,10 @@ class Reader {
     }
 
     private void disconnect() {
-        if (reader.isPresent()) {
+        if (reader != null) {
 
-            reader.get().disconnect();
-            reader.set(null);
+            reader.disconnect();
+            reader = null;
         }
     }
 }

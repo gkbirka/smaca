@@ -1,6 +1,5 @@
 package gr.smaca.database;
 
-import gr.smaca.common.observable.Property;
 import gr.smaca.config.Config;
 
 import java.sql.Connection;
@@ -9,7 +8,7 @@ import java.sql.DriverManager;
 class DatabaseManager {
     private final ConnectionState state;
     private final Config config;
-    private final Property<Connection> connection = new Property<>();
+    private Connection connection;
 
     DatabaseManager(ConnectionState state, Config config) {
         this.state = state;
@@ -34,12 +33,12 @@ class DatabaseManager {
                     + config.getDatabasePort() + "/"
                     + config.getDatabaseName();
 
-            connection.set(DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     connectionString,
                     config.getDatabaseUsername(),
-                    config.getDatabasePassword()));
+                    config.getDatabasePassword());
 
-            state.connectionProperty().set(connection.get());
+            state.setConnection(connection);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,11 +46,11 @@ class DatabaseManager {
 
     private void disconnect() {
         try {
-            if (connection.isPresent()) {
+            if (connection != null) {
 
-                connection.get().close();
-                connection.set(null);
-                state.connectionProperty().set(null);
+                connection.close();
+                connection = null;
+                state.setConnection(null);
             }
         } catch (Exception e) {
             e.printStackTrace();

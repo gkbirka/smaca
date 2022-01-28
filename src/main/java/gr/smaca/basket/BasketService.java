@@ -16,18 +16,18 @@ class BasketService {
     }
 
     BasketEvent getProducts(List<Tag> tags) {
-        String query = "SELECT * FROM products WHERE product_epc IN (";
+        StringBuilder query = new StringBuilder("SELECT * FROM products WHERE product_epc IN (");
         for (Tag tag : tags) {
-            query += "'" + tag.getEpc() + "'";
+            query.append("'").append(tag.getEpc()).append("'");
         }
-        query += ");";
+        query.append(");");
 
         Statement statement;
         ResultSet resultSet;
 
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            resultSet = statement.executeQuery(query.toString());
 
             List<Product> products = new ArrayList<>();
 
