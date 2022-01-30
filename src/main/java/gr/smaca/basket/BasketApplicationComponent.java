@@ -36,9 +36,13 @@ public class BasketApplicationComponent implements ApplicationComponent {
         EventListener<NavigationEvent> navigationEventListener = new EventListener<>() {
             @Override
             public void handle(NavigationEvent event) {
+                context.getEventBus().unsubscribe(NavigationEvent.class, this);
                 context.getEventBus().unsubscribe(TagReportEvent.class, tagReportEventListener);
                 context.getEventBus().unsubscribe(BasketEvent.class, basketEventListener);
-                context.getEventBus().unsubscribe(NavigationEvent.class, this);
+                context.getContainer().setCenter(null);
+                viewModel.dispose();
+
+                context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
             }
         };
         context.getEventBus().subscribe(NavigationEvent.class, navigationEventListener);
