@@ -51,6 +51,7 @@ public class UserApplicationComponent implements ApplicationComponent {
                     case USER_FOUND:
                         context.getEventBus().unsubscribe(UserEvent.class, this);
                         context.getEventBus().unsubscribe(TagReportEvent.class, tagReportEventListener);
+                        context.getContainer().setCenter(null);
                         viewModel.dispose();
 
                         context.getEventBus().emit(new NavigationEvent(View.AUTH));

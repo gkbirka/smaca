@@ -19,8 +19,8 @@ public class SidebarApplicationComponent implements ApplicationComponent {
             @Override
             public void handle(AuthEvent event) {
                 if (event.getType() == AuthEvent.Type.DISCONNECT) {
-                    context.getContainer().setLeft(null);
                     context.getEventBus().unsubscribe(AuthEvent.class, this);
+                    context.getContainer().setLeft(null);
                 }
             }
         };
