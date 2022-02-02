@@ -3,7 +3,7 @@ package gr.smaca.auth;
 import gr.smaca.common.view.AbstractView;
 import gr.smaca.dialog.Dialog;
 import gr.smaca.dialog.DialogBuilder;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -44,7 +44,7 @@ public class AuthView extends AbstractView {
     private void handle(Event keyEvent) {
         root.requestFocus();
 
-        SimpleStringProperty pin = viewModel.pinProperty();
+        StringProperty pin = viewModel.pinProperty();
         if (pin.get().length() >= pinMaxLength) {
             return;
         }

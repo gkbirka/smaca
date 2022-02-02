@@ -4,6 +4,7 @@ import gr.smaca.common.event.EventBus;
 import gr.smaca.common.view.ViewModel;
 import gr.smaca.user.User;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -12,7 +13,7 @@ class AuthViewModel implements ViewModel {
     private final AuthService authService;
     private final EventBus eventBus;
 
-    private final SimpleStringProperty pin = new SimpleStringProperty("");
+    private final StringProperty pin = new SimpleStringProperty("");
     private final Service<AuthEvent> taskService = new Service<>() {
         @Override
         protected Task<AuthEvent> createTask() {
@@ -51,7 +52,7 @@ class AuthViewModel implements ViewModel {
         eventBus.emit(new AuthEvent(AuthEvent.Type.CANCEL));
     }
 
-    SimpleStringProperty pinProperty() {
+    StringProperty pinProperty() {
         return pin;
     }
 

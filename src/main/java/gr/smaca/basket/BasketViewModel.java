@@ -51,7 +51,7 @@ class BasketViewModel implements ViewModel {
         };
     }
 
-    void readTags(){
+    void scan(){
         eventBus.emit(new ReaderEvent(ReaderEvent.Type.START_READING));
     }
 

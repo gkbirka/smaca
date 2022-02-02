@@ -3,6 +3,7 @@ package gr.smaca.user;
 import gr.smaca.common.event.EventBus;
 import gr.smaca.common.view.ViewModel;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -11,7 +12,7 @@ class UserViewModel implements ViewModel {
     private final UserService userService;
     private final EventBus eventBus;
 
-    private final SimpleStringProperty epc = new SimpleStringProperty("");
+    private final StringProperty epc = new SimpleStringProperty("");
     private final Service<UserEvent> taskService = new Service<>() {
         @Override
         protected Task<UserEvent> createTask() {
@@ -48,7 +49,7 @@ class UserViewModel implements ViewModel {
         }
     }
 
-    SimpleStringProperty epcProperty() {
+    StringProperty epcProperty() {
         return epc;
     }
 

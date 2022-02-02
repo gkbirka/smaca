@@ -21,7 +21,7 @@ public class BasketView extends AbstractView {
     @FXML
     private TableColumn<Product, Double> price;
     @FXML
-    private Button read;
+    private Button scan;
     @FXML
     private Button purchase;
 
@@ -38,7 +38,7 @@ public class BasketView extends AbstractView {
 
         products.itemsProperty().bind(viewModel.productsProperty());
 
-        read.setOnAction(event -> viewModel.readTags());
+        scan.setOnAction(event -> viewModel.scan());
         purchase.setOnAction(event -> {});//TODO
     }
 
