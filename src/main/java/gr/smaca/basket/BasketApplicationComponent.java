@@ -8,8 +8,6 @@ import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.TagReportEvent;
 
-import java.sql.Connection;
-
 public class BasketApplicationComponent implements ApplicationComponent {
     @Override
     public void initState(ApplicationContext context) {
@@ -18,34 +16,33 @@ public class BasketApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
-        Connection connection = connectionState.getConnection();
 
-        BasketService service = new BasketService(connection);
+        BasketService service = new BasketService(connectionState.getConnection());
         BasketViewModel viewModel = new BasketViewModel(service, context.getEventBus());
         BasketView view = new BasketView(viewModel);
 
-        EventListener<TagReportEvent> tagReportEventListener = event -> {
+        EventListener<TagReportEvent> onTagReportEvent = event -> {
             context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
             view.handle(event);
         };
-        context.getEventBus().subscribe(TagReportEvent.class, tagReportEventListener);
+        context.getEventBus().subscribe(TagReportEvent.class, onTagReportEvent);
 
-        EventListener<BasketEvent> basketEventListener = view::handle;
-        context.getEventBus().subscribe(BasketEvent.class, basketEventListener);
+        EventListener<BasketEvent> onBasketEvent = view::handle;
+        context.getEventBus().subscribe(BasketEvent.class, onBasketEvent);
 
-        EventListener<NavigationEvent> navigationEventListener = new EventListener<>() {
+        EventListener<NavigationEvent> onNavigationEvent = new EventListener<>() {
             @Override
             public void handle(NavigationEvent event) {
                 context.getEventBus().unsubscribe(NavigationEvent.class, this);
-                context.getEventBus().unsubscribe(TagReportEvent.class, tagReportEventListener);
-                context.getEventBus().unsubscribe(BasketEvent.class, basketEventListener);
+                context.getEventBus().unsubscribe(TagReportEvent.class, onTagReportEvent);
+                context.getEventBus().unsubscribe(BasketEvent.class, onBasketEvent);
                 context.getContainer().setCenter(null);
                 viewModel.dispose();
 
                 context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
             }
         };
-        context.getEventBus().subscribe(NavigationEvent.class, navigationEventListener);
+        context.getEventBus().subscribe(NavigationEvent.class, onNavigationEvent);
 
         context.getContainer().setCenter(view.load());
     }

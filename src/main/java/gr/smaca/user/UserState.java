@@ -5,9 +5,6 @@ import gr.smaca.common.state.State;
 public class UserState implements State {
     private User user;
 
-    UserState() {
-    }
-
     public User getUser() {
         return user;
     }

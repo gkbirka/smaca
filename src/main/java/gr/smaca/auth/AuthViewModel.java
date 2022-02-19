@@ -1,7 +1,7 @@
 package gr.smaca.auth;
 
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.view.ViewModel;
+import gr.smaca.common.lifecycle.ViewModel;
 import gr.smaca.user.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

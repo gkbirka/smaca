@@ -11,15 +11,15 @@ import java.util.ResourceBundle;
 
 public abstract class AbstractView {
     private static final String BUNDLE_NAME = "gr.smaca.i18n.bundle";
-    private final String viewPath;
+    private final String path;
 
-    public AbstractView(String viewPath) {
-        this.viewPath = viewPath;
+    public AbstractView(String path) {
+        this.path = path;
     }
 
     public final Parent load() {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(viewPath),
+                getClass().getResource(path),
                 ResourceBundle.getBundle(BUNDLE_NAME),
                 new JavaFXBuilderFactory(),
                 controller -> this);
@@ -28,11 +28,11 @@ public abstract class AbstractView {
             return loader.load();
         } catch (Exception e) {
             e.printStackTrace();
-        }
 
-        StackPane errorPane = new StackPane(new Label("Error loading view: " + getClass().getSimpleName()));
-        errorPane.getStyleClass().add("container-primary");
-        return errorPane;
+            StackPane error = new StackPane(new Label("Error loading view: " + getClass().getSimpleName()));
+            error.getStyleClass().add("container-primary");
+            return error;
+        }
     }
 
     protected abstract Stage getStage();

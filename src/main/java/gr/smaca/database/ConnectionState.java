@@ -7,9 +7,6 @@ import java.sql.Connection;
 public class ConnectionState implements State {
     private Connection connection;
 
-    ConnectionState() {
-    }
-
     public Connection getConnection() {
         return connection;
     }

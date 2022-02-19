@@ -6,10 +6,7 @@ import gr.smaca.common.event.EventListener;
 import gr.smaca.database.ConnectionState;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
-import gr.smaca.user.User;
 import gr.smaca.user.UserState;
-
-import java.sql.Connection;
 
 public class AuthApplicationComponent implements ApplicationComponent {
     @Override
@@ -19,16 +16,13 @@ public class AuthApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
-        Connection connection = connectionState.getConnection();
-
         UserState userState = context.getStateRegistry().getState(UserState.class);
-        User user = userState.getUser();
 
-        AuthService service = new AuthService(connection);
-        AuthViewModel viewModel = new AuthViewModel(user, service, context.getEventBus());
+        AuthService service = new AuthService(connectionState.getConnection());
+        AuthViewModel viewModel = new AuthViewModel(userState.getUser(), service, context.getEventBus());
         AuthView view = new AuthView(viewModel);
 
-        EventListener<AuthEvent> eventListener = new EventListener<>() {
+        EventListener<AuthEvent> onAuthEvent = new EventListener<>() {
             @Override
             public void handle(AuthEvent event) {
                 switch (event.getType()) {
@@ -56,7 +50,7 @@ public class AuthApplicationComponent implements ApplicationComponent {
                 }
             }
         };
-        context.getEventBus().subscribe(AuthEvent.class, eventListener);
+        context.getEventBus().subscribe(AuthEvent.class, onAuthEvent);
 
         context.getContainer().setCenter(view.load());
     }

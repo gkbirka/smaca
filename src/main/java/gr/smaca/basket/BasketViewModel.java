@@ -1,7 +1,7 @@
 package gr.smaca.basket;
 
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.view.ViewModel;
+import gr.smaca.common.lifecycle.ViewModel;
 import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.Tag;
 import javafx.beans.binding.ListBinding;
@@ -51,7 +51,7 @@ class BasketViewModel implements ViewModel {
         };
     }
 
-    void scan(){
+    void scan() {
         eventBus.emit(new ReaderEvent(ReaderEvent.Type.START_READING));
     }
 
@@ -63,6 +63,7 @@ class BasketViewModel implements ViewModel {
                     return productsTask(tags);
                 }
             };
+
             taskService.start();
         }
     }

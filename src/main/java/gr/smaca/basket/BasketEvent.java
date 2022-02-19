@@ -4,7 +4,7 @@ import gr.smaca.common.event.Event;
 
 import java.util.List;
 
-public class BasketEvent implements Event {
+class BasketEvent implements Event {
     enum Type {
         CONNECTION_ERROR,
         PRODUCTS_FOUND,

@@ -1,62 +1,48 @@
 package gr.smaca.user;
 
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.view.ViewModel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.concurrent.Service;
+import gr.smaca.common.lifecycle.AbstractViewModel;
 import javafx.concurrent.Task;
 
-class UserViewModel implements ViewModel {
+class UserViewModel extends AbstractViewModel {
     private final UserState state;
-    private final UserService userService;
+    private final UserService service;
     private final EventBus eventBus;
 
-    private final StringProperty epc = new SimpleStringProperty("");
-    private final Service<UserEvent> taskService = new Service<>() {
-        @Override
-        protected Task<UserEvent> createTask() {
-            return userTask();
-        }
-    };
-
-    UserViewModel(UserState state, UserService userService, EventBus eventBus) {
+    UserViewModel(UserState state, UserService service, EventBus eventBus) {
+        super(true);
         this.state = state;
-        this.userService = userService;
+        this.service = service;
         this.eventBus = eventBus;
     }
 
-    private Task<UserEvent> userTask() {
-        return new Task<>() {
+    void getUser(String epc) {
+        Task<User> task = new Task<>() {
             @Override
-            protected UserEvent call() {
-                return userService.getUser(epc.get());
+            protected User call() throws Exception {
+                return service.getUser(epc);
             }
 
             @Override
             protected void succeeded() {
-                UserEvent event = this.getValue();
-                state.setUser(event.getUser());
-                eventBus.emit(event);
+                User user = this.getValue();
+                state.setUser(user);
+
+                if (user != null) {
+                    eventBus.emit(new UserEvent(UserEvent.Type.USER_FOUND));
+                } else {
+                    eventBus.emit(new UserEvent(UserEvent.Type.USER_NOT_FOUND));
+                }
+            }
+
+            @Override
+            protected void failed() {
+                this.getException().printStackTrace();
+
+                eventBus.emit(new UserEvent(UserEvent.Type.CONNECTION_ERROR));
             }
         };
-    }
 
-    void getUser() {
-        if (!taskService.isRunning()) {
-            taskService.reset();
-            taskService.start();
-        }
-    }
-
-    StringProperty epcProperty() {
-        return epc;
-    }
-
-    @Override
-    public void dispose() {
-        if (taskService.isRunning()) {
-            taskService.cancel();
-        }
+        executor.submit(task);
     }
 }

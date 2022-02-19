@@ -1,4 +1,3 @@
 package gr.smaca.common.state;
 
-public interface State {
-}
+public interface State {}

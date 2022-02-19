@@ -1,4 +1,3 @@
 package gr.smaca.common.event;
 
-public interface Event {
-}
+public interface Event {}

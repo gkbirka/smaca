@@ -23,10 +23,9 @@ public class UserView extends AbstractView {
 
     void handle(TagReportEvent event) {
         List<Tag> tags = event.getTags();
+
         if (tags.size() == 1) {
-            String epc = tags.get(0).getEpc();
-            viewModel.epcProperty().set(epc);
-            viewModel.getUser();
+            viewModel.getUser(tags.get(0).getEpc());
         } else {
             new DialogBuilder().build(Dialog.MULTIPLE_TAGS_DETECTED, getStage()).showAndWait();
         }

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 class BasketService {
@@ -17,10 +18,13 @@ class BasketService {
 
     BasketEvent getProducts(List<Tag> tags) {
         StringBuilder query = new StringBuilder("SELECT * FROM products WHERE product_epc IN (");
-        for (Tag tag : tags) {
-            query.append("'").append(tag.getEpc()).append("'");
+
+        Iterator<Tag> iterator = tags.iterator();
+        while (iterator.hasNext()) {
+            Tag tag = iterator.next();
+
+            query.append("'").append(tag.getEpc()).append(iterator.hasNext() ? "', " : "');");
         }
-        query.append(");");
 
         Statement statement;
         ResultSet resultSet;

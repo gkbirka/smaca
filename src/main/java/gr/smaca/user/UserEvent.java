@@ -10,23 +10,12 @@ class UserEvent implements Event {
     }
 
     private final UserEvent.Type type;
-    private final User user;
-
-    UserEvent(Type type, User user) {
-        this.type = type;
-        this.user = user;
-    }
 
     UserEvent(Type type) {
         this.type = type;
-        this.user = null;
     }
 
     UserEvent.Type getType() {
         return type;
-    }
-
-    User getUser() {
-        return user;
     }
 }

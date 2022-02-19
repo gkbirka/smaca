@@ -2,7 +2,7 @@ package gr.smaca.sidebar;
 
 import gr.smaca.auth.AuthEvent;
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.view.ViewModel;
+import gr.smaca.common.lifecycle.ViewModel;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
 

@@ -39,7 +39,8 @@ public class BasketView extends AbstractView {
         products.itemsProperty().bind(viewModel.productsProperty());
 
         scan.setOnAction(event -> viewModel.scan());
-        purchase.setOnAction(event -> {});//TODO
+        purchase.setOnAction(event -> {
+        });//TODO
     }
 
     void handle(TagReportEvent event) {
