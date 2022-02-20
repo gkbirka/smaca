@@ -1,51 +1,49 @@
 package gr.smaca.auth;
 
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.lifecycle.ViewModel;
+import gr.smaca.common.lifecycle.AbstractViewModel;
 import gr.smaca.user.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-class AuthViewModel implements ViewModel {
+class AuthViewModel extends AbstractViewModel {
     private final User user;
-    private final AuthService authService;
+    private final AuthService service;
     private final EventBus eventBus;
 
     private final StringProperty pin = new SimpleStringProperty("");
-    private final Service<AuthEvent> taskService = new Service<>() {
-        @Override
-        protected Task<AuthEvent> createTask() {
-            return authTask();
-        }
-    };
 
-    AuthViewModel(User user, AuthService authService, EventBus eventBus) {
+    AuthViewModel(User user, AuthService service, EventBus eventBus) {
+        super(true);
         this.user = user;
-        this.authService = authService;
+        this.service = service;
         this.eventBus = eventBus;
     }
 
-    private Task<AuthEvent> authTask() {
-        return new Task<>() {
+    void auth() {
+        Task<Boolean> task = new Task<>() {
             @Override
-            protected AuthEvent call() {
-                return authService.auth(user.getEpc(), pin.get());
+            protected Boolean call() throws Exception {
+                return service.auth(user.getEpc(), pin.get());
             }
 
             @Override
             protected void succeeded() {
-                eventBus.emit(this.getValue());
+                boolean authed = this.getValue();
+
+                AuthEvent event = new AuthEvent(authed ? AuthEvent.Type.CONNECT : AuthEvent.Type.WRONG_PIN);
+
+                eventBus.emit(event);
+            }
+
+            @Override
+            protected void failed() {
+                eventBus.emit(new AuthEvent(AuthEvent.Type.CONNECTION_ERROR));
             }
         };
-    }
 
-    void auth() {
-        if (!taskService.isRunning()) {
-            taskService.reset();
-            taskService.start();
-        }
+        execute(task);
     }
 
     void cancel() {
@@ -54,12 +52,5 @@ class AuthViewModel implements ViewModel {
 
     StringProperty pinProperty() {
         return pin;
-    }
-
-    @Override
-    public void dispose() {
-        if (taskService.isRunning()) {
-            taskService.cancel();
-        }
     }
 }

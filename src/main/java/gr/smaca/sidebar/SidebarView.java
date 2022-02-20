@@ -42,7 +42,7 @@ public class SidebarView extends AbstractView {
         disconnect.setOnTouchPressed(event -> viewModel.disconnect());
     }
 
-    private void navigate(View view) {
+    void navigate(View view) {
         switch (view) {
             case BASKET:
                 select(basket);

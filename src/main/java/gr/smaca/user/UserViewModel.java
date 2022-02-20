@@ -2,6 +2,7 @@ package gr.smaca.user;
 
 import gr.smaca.common.event.EventBus;
 import gr.smaca.common.lifecycle.AbstractViewModel;
+import gr.smaca.reader.Tag;
 import javafx.concurrent.Task;
 
 class UserViewModel extends AbstractViewModel {
@@ -16,11 +17,11 @@ class UserViewModel extends AbstractViewModel {
         this.eventBus = eventBus;
     }
 
-    void getUser(String epc) {
+    void getUser(Tag tag) {
         Task<User> task = new Task<>() {
             @Override
             protected User call() throws Exception {
-                return service.getUser(epc);
+                return service.getUser(tag.getEpc());
             }
 
             @Override
@@ -43,6 +44,6 @@ class UserViewModel extends AbstractViewModel {
             }
         };
 
-        executor.submit(task);
+        execute(task);
     }
 }

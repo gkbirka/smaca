@@ -2,14 +2,15 @@ package gr.smaca.sidebar;
 
 import gr.smaca.auth.AuthEvent;
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.lifecycle.ViewModel;
+import gr.smaca.common.lifecycle.AbstractViewModel;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
 
-class SidebarViewModel implements ViewModel {
+class SidebarViewModel extends AbstractViewModel {
     private final EventBus eventBus;
 
     SidebarViewModel(EventBus eventBus) {
+        super(false);
         this.eventBus = eventBus;
     }
 
@@ -19,9 +20,5 @@ class SidebarViewModel implements ViewModel {
 
     void disconnect() {
         eventBus.emit(new AuthEvent(AuthEvent.Type.DISCONNECT));
-    }
-
-    @Override
-    public void dispose() {
     }
 }

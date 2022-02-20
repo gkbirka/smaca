@@ -1,7 +1,5 @@
 package gr.smaca.basket;
 
-import gr.smaca.reader.Tag;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -16,43 +14,37 @@ class BasketService {
         this.connection = connection;
     }
 
-    BasketEvent getProducts(List<Tag> tags) {
+    List<Product> getProducts(List<String> epcs) throws Exception {
         StringBuilder query = new StringBuilder("SELECT * FROM products WHERE product_epc IN (");
 
-        Iterator<Tag> iterator = tags.iterator();
+        Iterator<String> iterator = epcs.iterator();
         while (iterator.hasNext()) {
-            Tag tag = iterator.next();
+            String epc = iterator.next();
 
-            query.append("'").append(tag.getEpc()).append(iterator.hasNext() ? "', " : "');");
+            query.append("'").append(epc).append(iterator.hasNext() ? "', " : "');");
         }
 
         Statement statement;
         ResultSet resultSet;
 
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query.toString());
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery(query.toString());
 
-            List<Product> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
 
-            while (resultSet.next()) {
-                Product product = new Product(
-                        resultSet.getString("product_epc"),
-                        resultSet.getString("product_name"),
-                        resultSet.getString("product_category"),
-                        resultSet.getDouble("product_price"));
+        while (resultSet.next()) {
+            Product product = new Product(
+                    resultSet.getString("product_epc"),
+                    resultSet.getString("product_name"),
+                    resultSet.getString("category_name"),
+                    resultSet.getDouble("product_price"));
 
-                products.add(product);
-            }
-
-            resultSet.close();
-            statement.close();
-
-            return new BasketEvent(BasketEvent.Type.PRODUCTS_FOUND, products);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return new BasketEvent(BasketEvent.Type.CONNECTION_ERROR);
+            products.add(product);
         }
+
+        resultSet.close();
+        statement.close();
+
+        return products;
     }
 }

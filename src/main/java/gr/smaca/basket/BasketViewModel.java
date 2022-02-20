@@ -1,20 +1,20 @@
 package gr.smaca.basket;
 
 import gr.smaca.common.event.EventBus;
-import gr.smaca.common.lifecycle.ViewModel;
+import gr.smaca.common.lifecycle.AbstractViewModel;
 import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.Tag;
 import javafx.beans.binding.ListBinding;
 import javafx.beans.value.ObservableListValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-class BasketViewModel implements ViewModel {
-    private final BasketService basketService;
+class BasketViewModel extends AbstractViewModel {
+    private final BasketService service;
     private final EventBus eventBus;
 
     private final ObservableListValue<Product> products = new ListBinding<>() {
@@ -23,32 +23,11 @@ class BasketViewModel implements ViewModel {
             return FXCollections.observableArrayList();
         }
     };
-    private Service<BasketEvent> taskService = new Service<>() {
-        @Override
-        protected Task<BasketEvent> createTask() {
-            return null;
-        }
-    };
 
-    BasketViewModel(BasketService basketService, EventBus eventBus) {
-        this.basketService = basketService;
+    BasketViewModel(BasketService service, EventBus eventBus) {
+        super(true);
+        this.service = service;
         this.eventBus = eventBus;
-    }
-
-    private Task<BasketEvent> productsTask(List<Tag> tags) {
-        return new Task<>() {
-            @Override
-            protected BasketEvent call() {
-                return basketService.getProducts(tags);
-            }
-
-            @Override
-            protected void succeeded() {
-                BasketEvent event = this.getValue();
-                products.setAll(event.getProducts());
-                eventBus.emit(event);
-            }
-        };
     }
 
     void scan() {
@@ -56,26 +35,29 @@ class BasketViewModel implements ViewModel {
     }
 
     void getProducts(List<Tag> tags) {
-        if (!taskService.isRunning()) {
-            taskService = new Service<>() {
-                @Override
-                protected Task<BasketEvent> createTask() {
-                    return productsTask(tags);
-                }
-            };
+        Task<List<Product>> task = new Task<>() {
+            @Override
+            protected List<Product> call() throws Exception {
+                return service.getProducts(tags.stream()
+                        .map(Tag::getEpc)
+                        .collect(Collectors.toList()));
+            }
 
-            taskService.start();
-        }
+            @Override
+            protected void succeeded() {
+                products.setAll(this.getValue());
+            }
+
+            @Override
+            protected void failed() {
+                eventBus.emit(new BasketEvent(BasketEvent.Type.CONNECTION_ERROR));
+            }
+        };
+
+        execute(task);
     }
 
     ObservableListValue<Product> productsProperty() {
         return products;
-    }
-
-    @Override
-    public void dispose() {
-        if (taskService.isRunning()) {
-            taskService.cancel();
-        }
     }
 }

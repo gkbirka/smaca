@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class EventBus {
     private final Map<Class, CopyOnWriteArrayList<EventListener>> listeners = new HashMap<>();
 
-    public void emit(Event event) {
+    public synchronized void emit(Event event) {
         Class eventClass = event.getClass();
         List<EventListener> eventListeners = listeners.get(eventClass);
 
@@ -18,7 +18,7 @@ public class EventBus {
         }
     }
 
-    public <T extends Event> void subscribe(Class<T> eventClass, EventListener<T> listener) {
+    public synchronized <T extends Event> void subscribe(Class<T> eventClass, EventListener<T> listener) {
         if (!listeners.containsKey(eventClass)) {
             listeners.put(eventClass, new CopyOnWriteArrayList<>());
         }
@@ -26,7 +26,7 @@ public class EventBus {
         listeners.get(eventClass).add(listener);
     }
 
-    public <T extends Event> void unsubscribe(Class<T> eventClass, EventListener<T> listener) {
+    public synchronized <T extends Event> void unsubscribe(Class<T> eventClass, EventListener<T> listener) {
         if (listeners.containsKey(eventClass)) {
             listeners.get(eventClass).remove(listener);
         }

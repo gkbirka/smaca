@@ -7,10 +7,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractViewModel {
-    protected final ExecutorService executor;
+    private final ExecutorService executor;
 
-    public AbstractViewModel(boolean initExecutor) {
-        this.executor = initExecutor ? new ThreadPoolExecutor(
+    protected AbstractViewModel(boolean initExecutor) {
+        executor = initExecutor ? new ThreadPoolExecutor(
                 1,
                 1,
                 0L,
@@ -21,6 +21,12 @@ public abstract class AbstractViewModel {
                 new DiscardPolicy();
             }
         } : null;
+    }
+
+    protected final void execute(Runnable runnable) {
+        if (executor != null) {
+            executor.execute(runnable);
+        }
     }
 
     public final void dispose() {

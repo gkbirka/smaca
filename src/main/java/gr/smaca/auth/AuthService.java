@@ -11,32 +11,26 @@ class AuthService {
         this.connection = connection;
     }
 
-    AuthEvent auth(String epc, String pin) {
+    boolean auth(String epc, String pin) throws Exception {
         String query = "SELECT user_first_name, user_last_name, user_epc FROM users WHERE user_epc = '" + epc + "' AND user_pin = '" + pin + "';";
 
         Statement statement;
         ResultSet resultSet;
 
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery(query);
 
-            if (resultSet.next()) {
+        if (resultSet.next()) {
 
-                resultSet.close();
-                statement.close();
+            resultSet.close();
+            statement.close();
 
-                return new AuthEvent(AuthEvent.Type.CONNECT);
-            } else {
-                resultSet.close();
-                statement.close();
+            return true;
+        } else {
+            resultSet.close();
+            statement.close();
 
-                return new AuthEvent(AuthEvent.Type.WRONG_PIN);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return new AuthEvent(AuthEvent.Type.CONNECTION_ERROR);
+            return false;
         }
     }
 }

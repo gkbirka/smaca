@@ -1,6 +1,10 @@
 package gr.smaca.reader;
 
-import com.impinj.octane.*;
+import com.impinj.octane.AntennaConfigGroup;
+import com.impinj.octane.ImpinjReader;
+import com.impinj.octane.ReportConfig;
+import com.impinj.octane.ReportMode;
+import com.impinj.octane.Settings;
 import gr.smaca.config.Config;
 
 class Reader {

@@ -36,7 +36,10 @@ class NavigationManager {
                 //TODO
                 break;
         }
-        component.initState(context);
-        component.initComponent(context);
+
+        if (component != null) {
+            component.initState(context);
+            component.initComponent(context);
+        }
     }
 }
