@@ -26,7 +26,7 @@ public class UserApplicationComponent implements ApplicationComponent {
         UserView view = new UserView(viewModel);
 
         EventListener<TagReportEvent> onTagReportEvent = event -> {
-            context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
+            //context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
             view.handle(event);
 
             if (event.getTags().size() > 1) {

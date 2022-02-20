@@ -1,10 +1,6 @@
 package gr.smaca.reader;
 
-import com.impinj.octane.AntennaConfigGroup;
-import com.impinj.octane.ImpinjReader;
-import com.impinj.octane.ReportConfig;
-import com.impinj.octane.ReportMode;
-import com.impinj.octane.Settings;
+import com.impinj.octane.*;
 import gr.smaca.config.Config;
 
 class Reader {
@@ -30,18 +26,15 @@ class Reader {
             reader.connect(hostname);
 
             Settings settings = reader.queryDefaultSettings();
-            ReportConfig config = settings.getReport();
-            config.setIncludeAntennaPortNumber(true);
-            config.setMode(ReportMode.Individual);
-            settings.setRfMode(1002);
+            ReportConfig report = settings.getReport();
+            report.setIncludeAntennaPortNumber(true);
+            report.setIncludeLastSeenTime(true);
+            report.setIncludeFirstSeenTime(true);
+            report.setIncludeSeenCount(true);
+            report.setMode(ReportMode.BatchAfterStop);
 
-            AntennaConfigGroup antennas = settings.getAntennas();
-            antennas.disableAll();
-            antennas.enableById(new short[]{1});
-            antennas.getAntenna((short) 1).setIsMaxRxSensitivity(false);
-            antennas.getAntenna((short) 1).setIsMaxTxPower(false);
-            antennas.getAntenna((short) 1).setTxPowerinDbm(20.0);
-            antennas.getAntenna((short) 1).setRxSensitivityinDbm(-70);
+            settings.getAutoStop().setMode(AutoStopMode.Duration);
+            settings.getAutoStop().setDurationInMs(2500);
 
             reader.setTagReportListener(policy);
             reader.applySettings(settings);

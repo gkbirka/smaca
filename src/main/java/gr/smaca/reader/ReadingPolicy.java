@@ -4,6 +4,7 @@ import com.impinj.octane.ImpinjReader;
 import com.impinj.octane.TagReport;
 import com.impinj.octane.TagReportListener;
 import gr.smaca.common.event.EventBus;
+import javafx.application.Platform;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,6 @@ class ReadingPolicy implements TagReportListener {
                 .map(tag -> new Tag(tag.getEpc().toString()))
                 .collect(Collectors.toList());
 
-        eventBus.emit(new TagReportEvent(tags));
+        Platform.runLater(() -> eventBus.emit(new TagReportEvent(tags)));
     }
 }
