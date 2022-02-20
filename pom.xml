@@ -53,9 +53,9 @@
         <dependency>
             <groupId>com.impinj</groupId>
             <artifactId>octane-sdk</artifactId>
-            <version>3.7.0</version>
+            <version>4.0.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/octane-sdk-3.7.0.jar</systemPath>
+            <systemPath>${project.basedir}/lib/octane-sdk-4.0.0.jar</systemPath>
         </dependency>
     </dependencies>
 
