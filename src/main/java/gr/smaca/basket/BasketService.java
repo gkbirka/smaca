@@ -15,7 +15,9 @@ class BasketService {
     }
 
     List<Product> getProducts(List<String> epcs) throws Exception {
-        StringBuilder query = new StringBuilder("SELECT * FROM products WHERE product_epc IN (");
+        StringBuilder query = new StringBuilder("SELECT * FROM products, product_epcs " +
+                "WHERE products.product_id = product_epcs.product_id " +
+                "AND product_epcs.product_epc IN (");
 
         Iterator<String> iterator = epcs.iterator();
         while (iterator.hasNext()) {
@@ -34,7 +36,7 @@ class BasketService {
 
         while (resultSet.next()) {
             Product product = new Product(
-                    resultSet.getString("product_epc"),
+                    resultSet.getInt("product_id"),
                     resultSet.getString("product_name"),
                     resultSet.getString("category_name"),
                     resultSet.getDouble("product_price"));

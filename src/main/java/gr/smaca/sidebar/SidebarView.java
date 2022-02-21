@@ -70,6 +70,6 @@ public class SidebarView extends AbstractView {
 
     @Override
     protected Stage getStage() {
-        return null;
+        return (Stage) root.getScene().getWindow();
     }
 }

@@ -6,20 +6,20 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 class Product {
-    private final String epc;
+    private final int id;
     private final StringProperty name;
     private final StringProperty category;
     private final DoubleProperty price;
 
-    Product(String epc, String name, String category, Double price) {
-        this.epc = epc;
+    Product(int id, String name, String category, Double price) {
+        this.id = id;
         this.name = new SimpleStringProperty(name);
         this.category = new SimpleStringProperty(category);
         this.price = new SimpleDoubleProperty(price);
     }
 
-    String getEpc() {
-        return epc;
+    int getId() {
+        return id;
     }
 
     StringProperty nameProperty() {

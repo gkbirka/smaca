@@ -22,10 +22,6 @@ public class AuthView extends AbstractView {
     private HBox dots;
     @FXML
     private GridPane numpad;
-    @FXML
-    private Button cancel;
-    @FXML
-    private Button clear;
 
     AuthView(AuthViewModel viewModel) {
         super("/gr/smaca/fxml/auth.fxml");
@@ -36,8 +32,6 @@ public class AuthView extends AbstractView {
     private void initialize() {
         pinMaxLength = dots.getChildren().size();
         numpad.disableProperty().bind(viewModel.pinProperty().length().isEqualTo(pinMaxLength));
-        cancel.setOnAction(event -> cancel());
-        clear.setOnAction(event -> clear());
     }
 
     @FXML
@@ -63,11 +57,13 @@ public class AuthView extends AbstractView {
         dots.getChildren().get(length - 1).getStyleClass().add("dot-filled");
     }
 
+    @FXML
     private void cancel() {
         clear();
         viewModel.cancel();
     }
 
+    @FXML
     private void clear() {
         root.requestFocus();
 
