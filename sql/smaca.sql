@@ -121,13 +121,23 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_epcs`
   ADD PRIMARY KEY (`product_epc`),
-  ADD KEY `product_id_to_epc_constraint` (`product_id`) USING BTREE;
+  ADD KEY `product_id_to_epc_constraint` (`product_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_epc`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -156,7 +166,7 @@ ALTER TABLE `products`
 -- Constraints for table `product_epcs`
 --
 ALTER TABLE `product_epcs`
-  ADD CONSTRAINT `product_id_constraint2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_id_to_epc_constraint` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
