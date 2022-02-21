@@ -34,7 +34,7 @@ class Reader {
             report.setMode(ReportMode.BatchAfterStop);
 
             settings.getAutoStop().setMode(AutoStopMode.Duration);
-            settings.getAutoStop().setDurationInMs(1500);
+            settings.getAutoStop().setDurationInMs(1000);
 
             reader.setTagReportListener(policy);
             reader.applySettings(settings);

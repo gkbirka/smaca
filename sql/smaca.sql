@@ -44,7 +44,7 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `order_details` (
   `order_id` int(11) NOT NULL,
-  `product_epc` varchar(30) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `product_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -55,10 +55,21 @@ CREATE TABLE `order_details` (
 --
 
 CREATE TABLE `products` (
-  `product_epc` varchar(30) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `product_name` varchar(30) NOT NULL,
   `category_name` varchar(30) NOT NULL,
   `product_price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_epcs`
+--
+
+CREATE TABLE `product_epcs` (
+  `product_epc` varchar(30) NOT NULL,
+  `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -96,30 +107,27 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD KEY `order_id_constraint` (`order_id`),
-  ADD KEY `product_epc_constraint` (`product_epc`);
+  ADD KEY `product_id_to_order_constraint` (`product_id`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`product_epc`),
+  ADD PRIMARY KEY (`product_id`),
   ADD KEY `category_name_constraint` (`category_name`);
+
+--
+-- Indexes for table `product_epcs`
+--
+ALTER TABLE `product_epcs`
+  ADD PRIMARY KEY (`product_epc`),
+  ADD KEY `product_id_to_epc_constraint` (`product_id`) USING BTREE;
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_epc`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -136,13 +144,19 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_id_constraint` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_epc_constraint` FOREIGN KEY (`product_epc`) REFERENCES `products` (`product_epc`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_id_to_order_constraint` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `category_name_constraint` FOREIGN KEY (`category_name`) REFERENCES `categories` (`category_name`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_epcs`
+--
+ALTER TABLE `product_epcs`
+  ADD CONSTRAINT `product_id_constraint2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
