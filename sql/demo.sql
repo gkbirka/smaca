@@ -101,6 +101,7 @@ INSERT INTO `product_epcs` (`product_epc`, `product_id`) VALUES
 ('3008 33B2 DDD9 0480 3505 0000', 2),
 ('3500 0000 1000 0030 0000 0054', 3),
 ('3504 F6EB D011 27C0 0000 0000', 4),
+('3501 2D68 7000 0020 0000 0002', 5),
 ('3504 F6EB D013 A840 0000 00BB', 5);
 
 -- --------------------------------------------------------
@@ -122,8 +123,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_epc`, `user_first_name`, `user_last_name`, `user_pin`) VALUES
 ('3501 2D68 7000 0020 0000 0000', 'Jack', 'Carver', 1111),
-('3501 2D68 7000 0020 0000 0001', 'Gordon', 'Brown', 2222),
-('3501 2D68 7000 0020 0000 0002', 'Bob', 'Smith', 3333);
+('3501 2D68 7000 0020 0000 0001', 'Gordon', 'Brown', 2222);
 
 --
 -- Indexes for dumped tables
