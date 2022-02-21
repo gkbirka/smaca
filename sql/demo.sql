@@ -53,7 +53,7 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `order_details` (
   `order_id` int(11) NOT NULL,
-  `product_epc` varchar(30) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `product_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -64,7 +64,7 @@ CREATE TABLE `order_details` (
 --
 
 CREATE TABLE `products` (
-  `product_epc` varchar(30) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `product_name` varchar(30) NOT NULL,
   `category_name` varchar(30) NOT NULL,
   `product_price` double NOT NULL
@@ -74,12 +74,34 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_epc`, `product_name`, `category_name`, `product_price`) VALUES
-('2008 1016 0000 ABCD FFFF 0001', 'Lay\'s (90g)', 'Snacks', 0.9),
-('3008 33B2 DDD9 0480 3505 0000', 'Coca - Cola (2L)', 'Refreshments', 2.53),
-('3500 0000 1000 0030 0000 0054', 'Cheetos (125g)', 'Snacks', 1.25),
-('3504 F6EB D011 27C0 0000 0000', 'Absolut Vodka (700ml)', 'Drinks', 16.13),
-('3504 F6EB D013 A840 0000 00BB', 'Oreo (154g)', 'Snacks', 1.09);
+INSERT INTO `products` (`product_id`, `product_name`, `category_name`, `product_price`) VALUES
+(1, 'Lay\'s (90g)', 'Snacks', 0.9),
+(2, 'Coca - Cola (2L)', 'Refreshments', 2.53),
+(3, 'Cheetos (125g)', 'Snacks', 1.25),
+(4, 'Absolut Vodka (700ml)', 'Drinks', 16.13),
+(5, 'Oreo (154g)', 'Snacks', 1.09);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_epcs`
+--
+
+CREATE TABLE `product_epcs` (
+  `product_epc` varchar(30) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product_epcs`
+--
+
+INSERT INTO `product_epcs` (`product_epc`, `product_id`) VALUES
+('2008 1016 0000 ABCD FFFF 0001', 1),
+('3008 33B2 DDD9 0480 3505 0000', 2),
+('3500 0000 1000 0030 0000 0054', 3),
+('3504 F6EB D011 27C0 0000 0000', 4),
+('3504 F6EB D013 A840 0000 00BB', 5);
 
 -- --------------------------------------------------------
 
@@ -125,14 +147,21 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD KEY `order_id_constraint` (`order_id`),
-  ADD KEY `product_epc_constraint` (`product_epc`);
+  ADD KEY `product_id_to_order_constraint` (`product_id`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`product_epc`),
+  ADD PRIMARY KEY (`product_id`),
   ADD KEY `category_name_constraint` (`category_name`);
+
+--
+-- Indexes for table `product_epcs`
+--
+ALTER TABLE `product_epcs`
+  ADD PRIMARY KEY (`product_epc`),
+  ADD KEY `product_id_to_epc_constraint` (`product_id`);
 
 --
 -- Indexes for table `users`
@@ -145,10 +174,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT for table `products`
 --
-ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `products`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -165,13 +194,19 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_id_constraint` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_epc_constraint` FOREIGN KEY (`product_epc`) REFERENCES `products` (`product_epc`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_id_to_order_constraint` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `category_name_constraint` FOREIGN KEY (`category_name`) REFERENCES `categories` (`category_name`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_epcs`
+--
+ALTER TABLE `product_epcs`
+  ADD CONSTRAINT `product_id_to_epc_constraint` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
