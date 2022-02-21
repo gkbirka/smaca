@@ -2,6 +2,7 @@ package gr.smaca.user;
 
 import gr.smaca.common.event.EventBus;
 import gr.smaca.common.lifecycle.AbstractViewModel;
+import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.Tag;
 import javafx.concurrent.Task;
 
@@ -15,6 +16,10 @@ class UserViewModel extends AbstractViewModel {
         this.state = state;
         this.service = service;
         this.eventBus = eventBus;
+    }
+
+    void scan() {
+        eventBus.emit(new ReaderEvent(ReaderEvent.Type.SCAN));
     }
 
     void getUser(Tag tag) {

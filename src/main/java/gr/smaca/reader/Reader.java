@@ -1,6 +1,10 @@
 package gr.smaca.reader;
 
-import com.impinj.octane.*;
+import com.impinj.octane.AutoStopMode;
+import com.impinj.octane.ImpinjReader;
+import com.impinj.octane.ReportConfig;
+import com.impinj.octane.ReportMode;
+import com.impinj.octane.Settings;
 import gr.smaca.config.Config;
 
 class Reader {
@@ -27,14 +31,10 @@ class Reader {
 
             Settings settings = reader.queryDefaultSettings();
             ReportConfig report = settings.getReport();
-            report.setIncludeAntennaPortNumber(true);
-            report.setIncludeLastSeenTime(true);
-            report.setIncludeFirstSeenTime(true);
-            report.setIncludeSeenCount(true);
             report.setMode(ReportMode.BatchAfterStop);
 
             settings.getAutoStop().setMode(AutoStopMode.Duration);
-            settings.getAutoStop().setDurationInMs(2500);
+            settings.getAutoStop().setDurationInMs(1500);
 
             reader.setTagReportListener(policy);
             reader.applySettings(settings);
@@ -47,20 +47,16 @@ class Reader {
 
     void handle(ReaderEvent event) {
         switch (event.getType()) {
-            case START_READING:
-                startReading();
-                break;
-            case STOP_READING:
-                stopReading();
+            case SCAN:
+                scan();
                 break;
             case DISCONNECT:
-                stopReading();
                 disconnect();
                 break;
         }
     }
 
-    private void startReading() {
+    private void scan() {
         try {
             if (reader != null) {
                 reader.start();
@@ -70,21 +66,16 @@ class Reader {
         }
     }
 
-    private void stopReading() {
+    private void disconnect() {
         try {
             if (reader != null) {
+
                 reader.stop();
+                reader.disconnect();
+                reader = null;
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void disconnect() {
-        if (reader != null) {
-
-            reader.disconnect();
-            reader = null;
         }
     }
 }

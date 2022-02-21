@@ -4,14 +4,13 @@ import gr.smaca.common.component.ApplicationComponent;
 import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.common.event.EventListener;
 import gr.smaca.database.ConnectionState;
+import gr.smaca.database.DatabaseEvent;
 import gr.smaca.navigation.NavigationEvent;
-import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.TagReportEvent;
 
 public class BasketApplicationComponent implements ApplicationComponent {
     @Override
-    public void initState(ApplicationContext context) {
-    }
+    public void initState(ApplicationContext context) {}
 
     @Override
     public void initComponent(ApplicationContext context) {
@@ -21,14 +20,14 @@ public class BasketApplicationComponent implements ApplicationComponent {
         BasketViewModel viewModel = new BasketViewModel(service, context.getEventBus());
         BasketView view = new BasketView(viewModel);
 
-        EventListener<TagReportEvent> onTagReportEvent = event -> {
-            context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
-            view.handle(event);
-        };
+        EventListener<TagReportEvent> onTagReportEvent = view::handle;
         context.getEventBus().subscribe(TagReportEvent.class, onTagReportEvent);
 
         EventListener<BasketEvent> onBasketEvent = view::handle;
         context.getEventBus().subscribe(BasketEvent.class, onBasketEvent);
+
+        EventListener<DatabaseEvent> onDatabaseEvent = event -> viewModel.dispose();
+        context.getEventBus().subscribe(DatabaseEvent.class, onDatabaseEvent);
 
         EventListener<NavigationEvent> onNavigationEvent = new EventListener<>() {
             @Override
@@ -36,10 +35,9 @@ public class BasketApplicationComponent implements ApplicationComponent {
                 context.getEventBus().unsubscribe(NavigationEvent.class, this);
                 context.getEventBus().unsubscribe(TagReportEvent.class, onTagReportEvent);
                 context.getEventBus().unsubscribe(BasketEvent.class, onBasketEvent);
+                context.getEventBus().unsubscribe(DatabaseEvent.class, onDatabaseEvent);
                 context.getContainer().setCenter(null);
                 viewModel.dispose();
-
-                context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
             }
         };
         context.getEventBus().subscribe(NavigationEvent.class, onNavigationEvent);

@@ -4,9 +4,9 @@ import gr.smaca.common.component.ApplicationComponent;
 import gr.smaca.common.component.ApplicationContext;
 import gr.smaca.common.event.EventListener;
 import gr.smaca.database.ConnectionState;
+import gr.smaca.database.DatabaseEvent;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
-import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.TagReportEvent;
 
 public class UserApplicationComponent implements ApplicationComponent {
@@ -25,15 +25,11 @@ public class UserApplicationComponent implements ApplicationComponent {
         UserViewModel viewModel = new UserViewModel(userState, service, context.getEventBus());
         UserView view = new UserView(viewModel);
 
-        EventListener<TagReportEvent> onTagReportEvent = event -> {
-            //context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.STOP_READING));
-            view.handle(event);
-
-            if (event.getTags().size() > 1) {
-                context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
-            }
-        };
+        EventListener<TagReportEvent> onTagReportEvent = view::handle;
         context.getEventBus().subscribe(TagReportEvent.class, onTagReportEvent);
+
+        EventListener<DatabaseEvent> onDatabaseEvent = event -> viewModel.dispose();
+        context.getEventBus().subscribe(DatabaseEvent.class, onDatabaseEvent);
 
         EventListener<UserEvent> onUserEvent = new EventListener<>() {
             @Override
@@ -42,12 +38,11 @@ public class UserApplicationComponent implements ApplicationComponent {
                     case CONNECTION_ERROR:
                     case USER_NOT_FOUND:
                         view.handle(event);
-
-                        context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
                         break;
                     case USER_FOUND:
                         context.getEventBus().unsubscribe(UserEvent.class, this);
                         context.getEventBus().unsubscribe(TagReportEvent.class, onTagReportEvent);
+                        context.getEventBus().unsubscribe(DatabaseEvent.class, onDatabaseEvent);
                         context.getContainer().setCenter(null);
                         viewModel.dispose();
 
@@ -59,6 +54,5 @@ public class UserApplicationComponent implements ApplicationComponent {
         context.getEventBus().subscribe(UserEvent.class, onUserEvent);
 
         context.getContainer().setCenter(view.load());
-        context.getEventBus().emit(new ReaderEvent(ReaderEvent.Type.START_READING));
     }
 }

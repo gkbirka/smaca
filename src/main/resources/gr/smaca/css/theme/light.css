@@ -95,6 +95,14 @@ TextFlow > * {
     -fx-border-color: #007aff;
 }
 
+.circle:hover {
+    -fx-background-color: #dadada;
+}
+
+.circle:armed {
+    -fx-background-color: #ffffff;
+}
+
 .key {
     -fx-background-color: #ffffff;
     -fx-border-color: #f6efed;

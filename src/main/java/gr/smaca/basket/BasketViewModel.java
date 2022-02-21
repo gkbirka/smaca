@@ -31,7 +31,7 @@ class BasketViewModel extends AbstractViewModel {
     }
 
     void scan() {
-        eventBus.emit(new ReaderEvent(ReaderEvent.Type.START_READING));
+        eventBus.emit(new ReaderEvent(ReaderEvent.Type.SCAN));
     }
 
     void getProducts(List<Tag> tags) {

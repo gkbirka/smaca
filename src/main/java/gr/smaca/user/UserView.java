@@ -6,6 +6,7 @@ import gr.smaca.dialog.DialogBuilder;
 import gr.smaca.reader.Tag;
 import gr.smaca.reader.TagReportEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
@@ -15,10 +16,18 @@ public class UserView extends AbstractView {
     private final UserViewModel viewModel;
     @FXML
     private ScrollPane root;
+    @FXML
+    private Button scan;
 
     UserView(UserViewModel viewModel) {
         super("/gr/smaca/fxml/user.fxml");
         this.viewModel = viewModel;
+    }
+
+    @FXML
+    private void initialize() {
+        scan.setOnAction(event -> viewModel.scan());
+        scan.setOnTouchPressed(event -> viewModel.scan());
     }
 
     void handle(TagReportEvent event) {

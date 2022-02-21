@@ -21,7 +21,7 @@
             </TextFlow>
             <Label maxWidth="1.7976931348623157E308" />
             <Label layoutX="10.0" layoutY="190.0" maxWidth="1.7976931348623157E308" />
-            <Button focusTraversable="false" mnemonicParsing="false" mouseTransparent="true" styleClass="circle">
+            <Button fx:id="scan" mnemonicParsing="false" styleClass="circle">
                <graphic>
                   <Label fx:id="scanIconHolder">
                      <graphic>

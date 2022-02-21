@@ -8,8 +8,7 @@ import gr.smaca.navigation.View;
 
 public class SidebarApplicationComponent implements ApplicationComponent {
     @Override
-    public void initState(ApplicationContext context) {
-    }
+    public void initState(ApplicationContext context) {}
 
     @Override
     public void initComponent(ApplicationContext context) {

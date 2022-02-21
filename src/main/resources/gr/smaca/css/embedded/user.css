@@ -38,7 +38,7 @@
 
 #scanIcon {
     /*Comment -fx-icon-code to open user.fxml in SceneBuilder*/
-    -fx-icon-code: las-tag;
+    -fx-icon-code: las-qrcode;
 }
 
 /*******************************************************************************

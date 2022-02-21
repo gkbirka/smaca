@@ -19,6 +19,7 @@ class SidebarViewModel extends AbstractViewModel {
     }
 
     void disconnect() {
+        navigate(View.NONE);
         eventBus.emit(new AuthEvent(AuthEvent.Type.DISCONNECT));
     }
 }

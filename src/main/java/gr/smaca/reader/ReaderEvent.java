@@ -4,8 +4,7 @@ import gr.smaca.common.event.Event;
 
 public class ReaderEvent implements Event {
     public enum Type {
-        START_READING,
-        STOP_READING,
+        SCAN,
         DISCONNECT
     }
 
