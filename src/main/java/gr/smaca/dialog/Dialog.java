@@ -24,6 +24,10 @@ public enum Dialog {
             Alert.AlertType.WARNING,
             "dialog.warning.pin.content")),
 
+    PURCHASE_COMPLETED(new DialogProperties(
+            Alert.AlertType.INFORMATION,
+            "dialog.info.purchase.content")),
+
     CONFIRM_CLOSE(new DialogProperties(
             Alert.AlertType.CONFIRMATION,
             "dialog.confirmation.close.content") {

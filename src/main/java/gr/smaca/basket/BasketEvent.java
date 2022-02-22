@@ -4,7 +4,9 @@ import gr.smaca.common.event.Event;
 
 class BasketEvent implements Event {
     enum Type {
-        CONNECTION_ERROR
+        CONNECTION_ERROR,
+        PRODUCTS_FOUND,
+        PURCHASE_COMPLETED
     }
 
     private final BasketEvent.Type type;

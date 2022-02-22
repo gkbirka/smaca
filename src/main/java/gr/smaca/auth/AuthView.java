@@ -53,8 +53,8 @@ public class AuthView extends AbstractView {
         }
     }
 
-    private void fillDot(int length) {
-        dots.getChildren().get(length - 1).getStyleClass().add("dot-filled");
+    private void fillDot(int index) {
+        dots.getChildren().get(index - 1).getStyleClass().add("dot-filled");
     }
 
     @FXML

@@ -6,6 +6,7 @@ import gr.smaca.common.event.EventListener;
 import gr.smaca.database.ConnectionState;
 import gr.smaca.database.DatabaseEvent;
 import gr.smaca.navigation.NavigationEvent;
+import gr.smaca.navigation.View;
 import gr.smaca.reader.TagReportEvent;
 
 public class BasketApplicationComponent implements ApplicationComponent {
@@ -32,12 +33,14 @@ public class BasketApplicationComponent implements ApplicationComponent {
         EventListener<NavigationEvent> onNavigationEvent = new EventListener<>() {
             @Override
             public void handle(NavigationEvent event) {
-                context.getEventBus().unsubscribe(NavigationEvent.class, this);
-                context.getEventBus().unsubscribe(TagReportEvent.class, onTagReportEvent);
-                context.getEventBus().unsubscribe(BasketEvent.class, onBasketEvent);
-                context.getEventBus().unsubscribe(DatabaseEvent.class, onDatabaseEvent);
-                context.getContainer().setCenter(null);
-                viewModel.dispose();
+                if (event.getView() != View.BASKET) {
+                    context.getEventBus().unsubscribe(NavigationEvent.class, this);
+                    context.getEventBus().unsubscribe(TagReportEvent.class, onTagReportEvent);
+                    context.getEventBus().unsubscribe(BasketEvent.class, onBasketEvent);
+                    context.getEventBus().unsubscribe(DatabaseEvent.class, onDatabaseEvent);
+                    context.getContainer().setCenter(null);
+                    viewModel.dispose();
+                }
             }
         };
         context.getEventBus().subscribe(NavigationEvent.class, onNavigationEvent);

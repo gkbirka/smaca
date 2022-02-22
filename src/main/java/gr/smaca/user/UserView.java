@@ -25,9 +25,9 @@ public class UserView extends AbstractView {
     }
 
     @FXML
-    private void initialize() {
-        scan.setOnAction(event -> viewModel.scan());
-        scan.setOnTouchPressed(event -> viewModel.scan());
+    private void scan() {
+        scan.setDisable(true);
+        viewModel.scan();
     }
 
     void handle(TagReportEvent event) {
@@ -49,6 +49,8 @@ public class UserView extends AbstractView {
                 new DialogBuilder().build(Dialog.USER_NOT_FOUND, getStage()).showAndWait();
                 break;
         }
+
+        scan.setDisable(false);
     }
 
     @Override

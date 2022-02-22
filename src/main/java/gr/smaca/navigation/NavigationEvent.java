@@ -9,7 +9,7 @@ public class NavigationEvent implements Event {
         this.view = view;
     }
 
-    View getView() {
+    public View getView() {
         return view;
     }
 }

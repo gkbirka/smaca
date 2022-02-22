@@ -4,14 +4,23 @@ import gr.smaca.common.view.AbstractView;
 import gr.smaca.dialog.Dialog;
 import gr.smaca.dialog.DialogBuilder;
 import gr.smaca.reader.TagReportEvent;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class BasketView extends AbstractView {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class BasketView extends AbstractView implements Initializable {
     private final BasketViewModel viewModel;
+    @FXML
+    private GridPane root;
     @FXML
     private TableView<Product> products;
     @FXML
@@ -20,6 +29,10 @@ public class BasketView extends AbstractView {
     private TableColumn<Product, String> category;
     @FXML
     private TableColumn<Product, Double> price;
+    @FXML
+    private Label totalProducts;
+    @FXML
+    private Label totalCost;
     @FXML
     private Button scan;
     @FXML
@@ -30,19 +43,37 @@ public class BasketView extends AbstractView {
         this.viewModel = viewModel;
     }
 
-    @FXML
-    private void initialize() {
-        name.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        category.setCellValueFactory(cellData -> cellData.getValue().categoryProperty());
-        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+    @Override
+    public void initialize(URL path, ResourceBundle bundle) {
+        name.setCellValueFactory(data -> data.getValue().nameProperty());
+        category.setCellValueFactory(data -> data.getValue().categoryProperty());
+        price.setCellValueFactory(data -> data.getValue().priceProperty().asObject());
 
+        products.setPlaceholder(new Label(bundle.getString("basket.table.placeholder")));
         products.itemsProperty().bind(viewModel.productsProperty());
+        products.getColumns().forEach(column -> {
+            column.setReorderable(false);
+            column.setSortable(false);
+        });
 
-        scan.setOnAction(event -> viewModel.scan());
-        scan.setOnTouchPressed(event -> viewModel.scan());
+        totalProducts.textProperty().bind(Bindings.size(viewModel.productsProperty()).asString());
+        totalCost.textProperty().bind(Bindings.createDoubleBinding(() -> products.getItems()
+                .stream()
+                .mapToDouble(Product::getPrice).sum(), products.getItems()).asString().concat(" €"));
 
-        purchase.setOnAction(event -> {});//TODO
-        purchase.setOnTouchPressed(event -> {});//TODO
+        purchase.setDisable(true);
+    }
+
+    @FXML
+    private void scan() {
+        scan.setDisable(true);
+        viewModel.scan();
+    }
+
+    @FXML
+    private void purchase() {
+        purchase.setDisable(true);
+        viewModel.purchase();
     }
 
     void handle(TagReportEvent event) {
@@ -50,13 +81,28 @@ public class BasketView extends AbstractView {
     }
 
     void handle(BasketEvent event) {
-        if (event.getType() == BasketEvent.Type.CONNECTION_ERROR) {
-            new DialogBuilder().build(Dialog.CONNECTION_ERROR, getStage()).showAndWait();
+        switch (event.getType()) {
+            case CONNECTION_ERROR:
+                new DialogBuilder().build(Dialog.CONNECTION_ERROR, getStage()).showAndWait();
+                scan.setDisable(false);
+                if (viewModel.productsProperty().size() > 0) {
+                    purchase.setDisable(false);
+                }
+                break;
+            case PRODUCTS_FOUND:
+                scan.setDisable(false);
+                purchase.setDisable(false);
+                break;
+            case PURCHASE_COMPLETED:
+                viewModel.productsProperty().clear();
+                new DialogBuilder().build(Dialog.PURCHASE_COMPLETED, getStage()).showAndWait();
+                break;
+
         }
     }
 
     @Override
     protected Stage getStage() {
-        return (Stage) products.getScene().getWindow();
+        return (Stage) root.getScene().getWindow();
     }
 }

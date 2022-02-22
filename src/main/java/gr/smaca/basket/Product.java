@@ -33,4 +33,8 @@ class Product {
     DoubleProperty priceProperty() {
         return price;
     }
+
+    double getPrice() {
+        return price.get();
+    }
 }

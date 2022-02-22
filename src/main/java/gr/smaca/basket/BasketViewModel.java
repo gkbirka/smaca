@@ -34,6 +34,10 @@ class BasketViewModel extends AbstractViewModel {
         eventBus.emit(new ReaderEvent(ReaderEvent.Type.SCAN));
     }
 
+    void purchase() {
+
+    }
+
     void getProducts(List<Tag> tags) {
         Task<List<Product>> task = new Task<>() {
             @Override
@@ -46,6 +50,7 @@ class BasketViewModel extends AbstractViewModel {
             @Override
             protected void succeeded() {
                 products.setAll(this.getValue());
+                eventBus.emit(new BasketEvent(BasketEvent.Type.PRODUCTS_FOUND));
             }
 
             @Override
