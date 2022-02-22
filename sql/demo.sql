@@ -42,7 +42,7 @@ INSERT INTO `categories` (`category_name`) VALUES
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `user_epc` varchar(30) NOT NULL,
-  `order_date` date NOT NULL,
+  `order_date` datetime NOT NULL,
   `order_total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
