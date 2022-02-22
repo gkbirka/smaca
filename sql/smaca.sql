@@ -33,7 +33,8 @@ CREATE TABLE `categories` (
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `user_epc` varchar(30) NOT NULL,
-  `order_date` date NOT NULL
+  `order_date` date NOT NULL,
+  `order_total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -47,6 +48,18 @@ CREATE TABLE `order_details` (
   `product_id` int(11) NOT NULL,
   `product_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Triggers `order_details`
+--
+DELIMITER $$
+CREATE TRIGGER `order_total_trigger` BEFORE INSERT ON `order_details` FOR EACH ROW BEGIN
+    UPDATE orders
+    	SET orders.order_total = orders.order_total + NEW.product_price
+	WHERE orders.order_id = NEW.order_id;
+ END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -132,6 +145,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
