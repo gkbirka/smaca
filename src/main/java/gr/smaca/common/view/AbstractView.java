@@ -11,15 +11,15 @@ import java.util.ResourceBundle;
 
 public abstract class AbstractView {
     private static final String BUNDLE_NAME = "gr.smaca.i18n.bundle";
-    private final String path;
+    private final String location;
 
-    public AbstractView(String path) {
-        this.path = path;
+    public AbstractView(String location) {
+        this.location = location;
     }
 
     public final Parent load() {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(path),
+                getClass().getResource(location),
                 ResourceBundle.getBundle(BUNDLE_NAME),
                 new JavaFXBuilderFactory(),
                 controller -> this);

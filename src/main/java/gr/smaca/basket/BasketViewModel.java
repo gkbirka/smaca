@@ -4,6 +4,7 @@ import gr.smaca.common.event.EventBus;
 import gr.smaca.common.lifecycle.AbstractViewModel;
 import gr.smaca.reader.ReaderEvent;
 import gr.smaca.reader.Tag;
+import gr.smaca.user.User;
 import javafx.beans.binding.ListBinding;
 import javafx.beans.value.ObservableListValue;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class BasketViewModel extends AbstractViewModel {
+    private final User user;
     private final BasketService service;
     private final EventBus eventBus;
 
@@ -24,18 +26,15 @@ class BasketViewModel extends AbstractViewModel {
         }
     };
 
-    BasketViewModel(BasketService service, EventBus eventBus) {
+    BasketViewModel(User user, BasketService service, EventBus eventBus) {
         super(true);
+        this.user = user;
         this.service = service;
         this.eventBus = eventBus;
     }
 
     void scan() {
         eventBus.emit(new ReaderEvent(ReaderEvent.Type.SCAN));
-    }
-
-    void purchase() {
-
     }
 
     void getProducts(List<Tag> tags) {
@@ -51,6 +50,28 @@ class BasketViewModel extends AbstractViewModel {
             protected void succeeded() {
                 products.setAll(this.getValue());
                 eventBus.emit(new BasketEvent(BasketEvent.Type.PRODUCTS_FOUND));
+            }
+
+            @Override
+            protected void failed() {
+                eventBus.emit(new BasketEvent(BasketEvent.Type.CONNECTION_ERROR));
+            }
+        };
+
+        execute(task);
+    }
+
+    void purchase() {
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                service.purchaseProducts(user.getEpc(), products);
+                return null;
+            }
+
+            @Override
+            protected void succeeded() {
+                eventBus.emit(new BasketEvent(BasketEvent.Type.PURCHASE_COMPLETED));
             }
 
             @Override

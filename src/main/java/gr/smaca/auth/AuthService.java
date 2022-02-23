@@ -17,6 +17,8 @@ class AuthService {
         Statement statement;
         ResultSet resultSet;
 
+        connection.setAutoCommit(true);
+
         statement = connection.createStatement();
         resultSet = statement.executeQuery(query);
 

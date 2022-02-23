@@ -1,7 +1,9 @@
 package gr.smaca.basket;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,6 +31,8 @@ class BasketService {
         Statement statement;
         ResultSet resultSet;
 
+        connection.setAutoCommit(true);
+
         statement = connection.createStatement();
         resultSet = statement.executeQuery(query.toString());
 
@@ -48,5 +52,57 @@ class BasketService {
         statement.close();
 
         return products;
+    }
+
+    void purchaseProducts(String epc, List<Product> products) throws Exception {
+        String orderQuery = "INSERT INTO orders (order_id, user_epc, order_date, order_total) " +
+                "VALUES (default, '" + epc + "', NOW(), 0);";
+
+        try (PreparedStatement orderStatement = connection.prepareStatement(orderQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            connection.setAutoCommit(false);
+
+            int affectedRows = orderStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Purchasing failed, no order rows affected.");
+            }
+
+            int orderId;
+            try (ResultSet generatedKeys = orderStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    orderId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Purchasing failed, no ID obtained.");
+                }
+            }
+
+            StringBuilder detailsQuery = new StringBuilder("INSERT INTO order_details (order_id, product_id, product_price) VALUES");
+
+            Iterator<Product> iterator = products.iterator();
+            while (iterator.hasNext()) {
+                Product product = iterator.next();
+
+                detailsQuery.append("(")
+                        .append(orderId).append(", ")
+                        .append(product.getId()).append(", ")
+                        .append(product.getPrice()).append(")")
+                        .append(iterator.hasNext() ? ", " : ";");
+            }
+
+            PreparedStatement detailsStatement = connection.prepareStatement(detailsQuery.toString());
+            affectedRows = detailsStatement.executeUpdate();
+
+            if (affectedRows != products.size()) {
+                throw new SQLException("Purchasing failed, no order details rows affected.");
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+
+            throw new Exception(e);
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
 }

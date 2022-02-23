@@ -44,7 +44,7 @@ public class BasketView extends AbstractView implements Initializable {
     }
 
     @Override
-    public void initialize(URL path, ResourceBundle bundle) {
+    public void initialize(URL location, ResourceBundle bundle) {
         name.setCellValueFactory(data -> data.getValue().nameProperty());
         category.setCellValueFactory(data -> data.getValue().categoryProperty());
         price.setCellValueFactory(data -> data.getValue().priceProperty().asObject());
@@ -57,9 +57,9 @@ public class BasketView extends AbstractView implements Initializable {
         });
 
         totalProducts.textProperty().bind(Bindings.size(viewModel.productsProperty()).asString());
-        totalCost.textProperty().bind(Bindings.createDoubleBinding(() -> products.getItems()
+        totalCost.textProperty().bind(Bindings.format("%.2f €", products.getItems()
                 .stream()
-                .mapToDouble(Product::getPrice).sum(), products.getItems()).asString().concat(" €"));
+                .mapToDouble(Product::getPrice).sum(), products.getItems()));
 
         purchase.setDisable(true);
     }

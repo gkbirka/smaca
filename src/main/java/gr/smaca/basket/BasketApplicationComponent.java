@@ -8,6 +8,7 @@ import gr.smaca.database.DatabaseEvent;
 import gr.smaca.navigation.NavigationEvent;
 import gr.smaca.navigation.View;
 import gr.smaca.reader.TagReportEvent;
+import gr.smaca.user.UserState;
 
 public class BasketApplicationComponent implements ApplicationComponent {
     @Override
@@ -16,9 +17,10 @@ public class BasketApplicationComponent implements ApplicationComponent {
     @Override
     public void initComponent(ApplicationContext context) {
         ConnectionState connectionState = context.getStateRegistry().getState(ConnectionState.class);
+        UserState userState = context.getStateRegistry().getState(UserState.class);
 
         BasketService service = new BasketService(connectionState.getConnection());
-        BasketViewModel viewModel = new BasketViewModel(service, context.getEventBus());
+        BasketViewModel viewModel = new BasketViewModel(userState.getUser(), service, context.getEventBus());
         BasketView view = new BasketView(viewModel);
 
         EventListener<TagReportEvent> onTagReportEvent = view::handle;
