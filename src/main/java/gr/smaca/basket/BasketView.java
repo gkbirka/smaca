@@ -57,9 +57,11 @@ public class BasketView extends AbstractView implements Initializable {
         });
 
         totalProducts.textProperty().bind(Bindings.size(viewModel.productsProperty()).asString());
-        totalCost.textProperty().bind(Bindings.format("%.2f €", products.getItems()
-                .stream()
-                .mapToDouble(Product::getPrice).sum(), products.getItems()));
+        
+        totalCost.textProperty().bind(Bindings.format("%.2f €",
+                Bindings.createDoubleBinding(() -> viewModel.productsProperty()
+                        .stream()
+                        .mapToDouble(Product::getPrice).sum(), viewModel.productsProperty())));
 
         purchase.setDisable(true);
     }

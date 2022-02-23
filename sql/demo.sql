@@ -46,6 +46,17 @@ CREATE TABLE `orders` (
   `order_total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_epc`, `order_date`, `order_total`) VALUES
+(1, '3501 2D68 7000 0020 0000 0000', '2022-02-23 13:34:05', 3.78),
+(2, '3501 2D68 7000 0020 0000 0000', '2022-02-23 13:37:31', 22.99),
+(3, '3501 2D68 7000 0020 0000 0000', '2022-02-23 14:02:24', 22.09),
+(4, '3501 2D68 7000 0020 0000 0001', '2022-02-23 14:04:40', 2.15),
+(5, '3501 2D68 7000 0020 0000 0001', '2022-02-23 14:05:16', 20.84);
+
 -- --------------------------------------------------------
 
 --
@@ -57,6 +68,31 @@ CREATE TABLE `order_details` (
   `product_id` int(11) NOT NULL,
   `product_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`order_id`, `product_id`, `product_price`) VALUES
+(1, 2, 2.53),
+(1, 3, 1.25),
+(2, 1, 0.9),
+(2, 2, 2.53),
+(2, 3, 1.25),
+(2, 4, 16.13),
+(2, 5, 1.09),
+(2, 5, 1.09),
+(3, 2, 2.53),
+(3, 3, 1.25),
+(3, 4, 16.13),
+(3, 5, 1.09),
+(3, 5, 1.09),
+(4, 1, 0.9),
+(4, 3, 1.25),
+(5, 2, 2.53),
+(5, 4, 16.13),
+(5, 5, 1.09),
+(5, 5, 1.09);
 
 --
 -- Triggers `order_details`
@@ -190,7 +226,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
