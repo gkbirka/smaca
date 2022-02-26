@@ -60,6 +60,8 @@ class HistoryViewModel extends AbstractViewModel {
 
             @Override
             protected void failed() {
+                this.getException().printStackTrace();
+
                 eventBus.emit(new HistoryEvent(HistoryEvent.Type.CONNECTION_ERROR));
             }
         };
@@ -82,6 +84,8 @@ class HistoryViewModel extends AbstractViewModel {
 
             @Override
             protected void failed() {
+                this.getException().printStackTrace();
+
                 eventBus.emit(new HistoryEvent(HistoryEvent.Type.CONNECTION_ERROR));
             }
         };

@@ -5,6 +5,7 @@ import gr.smaca.basket.Product;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,7 @@ class HistoryService {
     }
 
     List<Order> getOrders(String epc) throws Exception {
-        String query = "SELECT order_id, FROM_UNIXTIME(order_date) as order_timestamp, order_total " +
-                "FROM orders WHERE user_epc = " + epc;
+        String query = "SELECT * FROM orders WHERE user_epc = '" + epc + "';";
 
         Statement statement;
         ResultSet resultSet;
@@ -32,7 +32,7 @@ class HistoryService {
         while (resultSet.next()) {
             Order order = new Order(
                     resultSet.getInt("order_id"),
-                    resultSet.getTimestamp("order_timestamp").toLocalDateTime(),
+                    new Timestamp(resultSet.getDate("order_date").getTime()).toLocalDateTime(),
                     resultSet.getDouble("order_total"));
 
             orders.add(order);
@@ -48,7 +48,7 @@ class HistoryService {
         String query = "SELECT products.product_id, products.product_name, products.category_name, order_details.product_price " +
                 "FROM products, order_details " +
                 "WHERE order_details.order_id = " + id + " " +
-                "AND products.product_id = order_details.product_id";
+                "AND products.product_id = order_details.product_id;";
 
         Statement statement;
         ResultSet resultSet;
