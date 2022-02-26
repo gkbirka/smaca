@@ -17,7 +17,6 @@ import gr.smaca.reader.ReaderApplicationComponent;
 import gr.smaca.reader.ReaderEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -84,8 +83,6 @@ public class Smaca extends Application {
     }
 
     private static boolean confirmClose(Stage stage) {
-        return new DialogBuilder().build(Dialog.CONFIRM_CLOSE, stage)
-                .showAndWait()
-                .orElse(null) == ButtonType.OK;
+        return new DialogBuilder().showConfirmation(Dialog.CONFIRM_CLOSE, stage);
     }
 }

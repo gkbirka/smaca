@@ -5,13 +5,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-class Product {
+public class Product {
     private final int id;
     private final StringProperty name;
     private final StringProperty category;
     private final DoubleProperty price;
 
-    Product(int id, String name, String category, Double price) {
+    public Product(int id, String name, String category, Double price) {
         this.id = id;
         this.name = new SimpleStringProperty(name);
         this.category = new SimpleStringProperty(category);
@@ -22,15 +22,15 @@ class Product {
         return id;
     }
 
-    StringProperty nameProperty() {
+    public StringProperty nameProperty() {
         return name;
     }
 
-    StringProperty categoryProperty() {
+    public StringProperty categoryProperty() {
         return category;
     }
 
-    DoubleProperty priceProperty() {
+    public DoubleProperty priceProperty() {
         return price;
     }
 

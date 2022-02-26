@@ -1,3 +1,109 @@
+/*******************************************************************************
+ *                                                                             *
+ * Title Text                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+#titleText {
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 2em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Products Table View                                                         *
+ *                                                                             *
+ ******************************************************************************/
+
+#productsPlaceholderText {
+    -fx-font-family: 'Manrope Bold';
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Actions                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
 #actions {
-    -fx-alignment: center;
+    -fx-alignment: top_center;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Summary Text                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+#summaryText {
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 2em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Total Products                                                              *
+ *                                                                             *
+ ******************************************************************************/
+
+#totalProductsText, #totalProducts {
+    -fx-font-family: 'Manrope Bold';
+    -fx-font-size: 1.4em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Total Cost                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+#totalCostText, #totalCost {
+    -fx-font-family: 'Manrope Bold';
+    -fx-font-size: 1.4em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Scan                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+
+#scan {
+    -fx-pref-height: 4em;
+    -fx-font-family: 'Manrope Bold';
+    -fx-font-size: 2em;
+}
+
+#scanIconHolder {
+    -fx-font-size: 1.5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#scanIcon {
+    /*Comment -fx-icon-code to open auth.fxml in SceneBuilder*/
+    -fx-icon-code: las-qrcode;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Purchase                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+
+#purchase {
+    -fx-pref-height: 4em;
+    -fx-font-family: 'Manrope Bold';
+    -fx-font-size: 2em;
+}
+
+#purchaseIconHolder {
+    -fx-font-size: 1.5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#purchaseIcon {
+    /*Comment -fx-icon-code to open auth.fxml in SceneBuilder*/
+    -fx-icon-code: las-money-bill-wave;
 }

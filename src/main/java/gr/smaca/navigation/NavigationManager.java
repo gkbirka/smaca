@@ -4,6 +4,8 @@ import gr.smaca.auth.AuthApplicationComponent;
 import gr.smaca.basket.BasketApplicationComponent;
 import gr.smaca.common.component.ApplicationComponent;
 import gr.smaca.common.component.ApplicationContext;
+import gr.smaca.history.HistoryApplicationComponent;
+import gr.smaca.profile.ProfileApplicationComponent;
 import gr.smaca.sidebar.SidebarApplicationComponent;
 import gr.smaca.user.UserApplicationComponent;
 
@@ -30,10 +32,10 @@ class NavigationManager {
                 component = new BasketApplicationComponent();
                 break;
             case HISTORY:
-                //TODO
+                component = new HistoryApplicationComponent();
                 break;
             case PROFILE:
-                //TODO
+                component = new ProfileApplicationComponent();
                 break;
         }
 

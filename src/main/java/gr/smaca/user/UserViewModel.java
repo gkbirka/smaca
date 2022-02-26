@@ -22,7 +22,7 @@ class UserViewModel extends AbstractViewModel {
         eventBus.emit(new ReaderEvent(ReaderEvent.Type.SCAN));
     }
 
-    void getUser(Tag tag) {
+    void loadUser(Tag tag) {
         Task<User> task = new Task<>() {
             @Override
             protected User call() throws Exception {

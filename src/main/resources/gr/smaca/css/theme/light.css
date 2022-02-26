@@ -21,6 +21,14 @@ TextFlow > * {
  *                                                                             *
  ******************************************************************************/
 
+.container-border-top {
+    -fx-border-color: #eeeeee;
+}
+
+.container-border-left {
+    -fx-border-color: #eeeeee;
+}
+
 .container-primary {
     -fx-background-color: #f3f5f7;
 }
@@ -28,6 +36,63 @@ TextFlow > * {
 .container-secondary {
     -fx-background-color: #ffffff;
     -fx-border-color: #eeeeee;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Table View                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+.table-view .column-header {
+    -fx-background-color: #deeffe;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+}
+
+.table-view .column-header-background .label .text {
+    -fx-fill: #007aff;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: #deeffe;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:odd:filled {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+}
+
+.table-row-cell:odd:filled:selected {
+    -fx-background-color: #007aff;
+}
+
+.table-row-cell:odd:filled:selected .text {
+    -fx-fill: #ffffff;
+}
+
+.table-row-cell:even:filled {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+}
+
+.table-row-cell:even:filled:selected {
+    -fx-background-color: #007aff;
+}
+
+.table-row-cell:even:filled:selected .text {
+    -fx-fill: #ffffff;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical .thumb {
+    -fx-background-color: #dadada;
+}
+
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color: #dadada;
 }
 
 /*******************************************************************************
@@ -54,6 +119,10 @@ TextFlow > * {
 
 .icon-other {
     -fx-icon-color: #007aff;
+}
+
+.icon-basket {
+    -fx-icon-color: #ffffff;
 }
 
 /*******************************************************************************
@@ -140,6 +209,35 @@ TextFlow > * {
 
 .button-sidebar-selected {
     -fx-background-color: #deeffe;
+}
+
+.button-scan .text,
+.button-purchase .text {
+    -fx-fill: #ffffff;
+}
+
+.button-scan {
+    -fx-background-color: #007aff;
+}
+
+.button-scan:hover {
+    -fx-background-color: #004fcb;
+}
+
+.button-scan:pressed {
+    -fx-background-color: #007aff;
+}
+
+.button-purchase {
+    -fx-background-color: #43a047;
+}
+
+.button-purchase:hover {
+    -fx-background-color: #00701a;
+}
+
+.button-purchase:pressed {
+    -fx-background-color: #43a047;
 }
 
 /*******************************************************************************

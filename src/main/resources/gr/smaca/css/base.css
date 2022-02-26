@@ -35,6 +35,14 @@
  *                                                                             *
  ******************************************************************************/
 
+.container-border-top {
+    -fx-border-width: 1.2 0px 0px 0px;
+}
+
+.container-border-left {
+    -fx-border-width: 0px 0px 0px 1.2;
+}
+
 .scroll-pane {
     -fx-padding: 0px;
     -fx-background-insets: 0px;
@@ -52,6 +60,63 @@
 
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Table View                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+.table-view {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0px;
+    -fx-padding: 0;
+}
+
+.table-column {
+    -fx-alignment: center_left;
+}
+
+.table-view .column-header-background .label {
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 1.2em;
+    -fx-alignment: center_left;
+    -fx-padding: 0 0 0 8;
+}
+
+.table-view .table-cell {
+    -fx-border-color: transparent;
+    -fx-padding: 0 0 0 10;
+    -fx-font-size: 1.1em;
+}
+
+.table-row-cell:odd, .table-row-cell:even {
+    -fx-background-insets: 0px, 0px 0px 1px 0px;
+    -fx-cell-size: 3.5em;
+    -fx-padding: 0;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .virtual-flow .scroll-bar:horizontal {
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+}
+
+.table-view .virtual-flow .scroll-bar:horizontal .increment-button,
+.table-view .virtual-flow .scroll-bar:horizontal .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
 }
 
 /*******************************************************************************

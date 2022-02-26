@@ -37,7 +37,7 @@ class BasketViewModel extends AbstractViewModel {
         eventBus.emit(new ReaderEvent(ReaderEvent.Type.SCAN));
     }
 
-    void getProducts(List<Tag> tags) {
+    void loadProducts(List<Tag> tags) {
         Task<List<Product>> task = new Task<>() {
             @Override
             protected List<Product> call() throws Exception {
@@ -62,11 +62,10 @@ class BasketViewModel extends AbstractViewModel {
     }
 
     void purchase() {
-        Task<Void> task = new Task<>() {
+        Task<Boolean> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
-                service.purchaseProducts(user.getEpc(), products);
-                return null;
+            protected Boolean call() throws Exception {
+                return service.insertOrder(user.getEpc(), products);
             }
 
             @Override

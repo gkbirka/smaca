@@ -6,18 +6,16 @@ import gr.smaca.dialog.DialogBuilder;
 import gr.smaca.reader.TagReportEvent;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class BasketView extends AbstractView implements Initializable {
+public class BasketView extends AbstractView {
+    private static final String CURRENCY_SYMBOL = "€";
     private final BasketViewModel viewModel;
     @FXML
     private GridPane root;
@@ -43,13 +41,14 @@ public class BasketView extends AbstractView implements Initializable {
         this.viewModel = viewModel;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle bundle) {
+    @FXML
+    private void initialize() {
         name.setCellValueFactory(data -> data.getValue().nameProperty());
         category.setCellValueFactory(data -> data.getValue().categoryProperty());
         price.setCellValueFactory(data -> data.getValue().priceProperty().asObject());
 
-        products.setPlaceholder(new Label(bundle.getString("basket.table.placeholder")));
+        price.setCellFactory(column -> priceWithCurrency());
+
         products.itemsProperty().bind(viewModel.productsProperty());
         products.getColumns().forEach(column -> {
             column.setReorderable(false);
@@ -57,13 +56,22 @@ public class BasketView extends AbstractView implements Initializable {
         });
 
         totalProducts.textProperty().bind(Bindings.size(viewModel.productsProperty()).asString());
-        
-        totalCost.textProperty().bind(Bindings.format("%.2f €",
+        totalCost.textProperty().bind(Bindings.format("%.2f " + CURRENCY_SYMBOL,
                 Bindings.createDoubleBinding(() -> viewModel.productsProperty()
                         .stream()
                         .mapToDouble(Product::getPrice).sum(), viewModel.productsProperty())));
 
         purchase.setDisable(true);
+    }
+
+    private TableCell<Product, Double> priceWithCurrency() {
+        return new TableCell<>() {
+            @Override
+            protected void updateItem(Double price, boolean empty) {
+                super.updateItem(price, empty);
+                setText(empty ? null : String.format("%.2f " + CURRENCY_SYMBOL, price));
+            }
+        };
     }
 
     @FXML
@@ -79,13 +87,13 @@ public class BasketView extends AbstractView implements Initializable {
     }
 
     void handle(TagReportEvent event) {
-        viewModel.getProducts(event.getTags());
+        viewModel.loadProducts(event.getTags());
     }
 
     void handle(BasketEvent event) {
         switch (event.getType()) {
             case CONNECTION_ERROR:
-                new DialogBuilder().build(Dialog.CONNECTION_ERROR, getStage()).showAndWait();
+                new DialogBuilder().show(Dialog.CONNECTION_ERROR, getStage());
                 scan.setDisable(false);
                 if (viewModel.productsProperty().size() > 0) {
                     purchase.setDisable(false);
@@ -97,7 +105,7 @@ public class BasketView extends AbstractView implements Initializable {
                 break;
             case PURCHASE_COMPLETED:
                 viewModel.productsProperty().clear();
-                new DialogBuilder().build(Dialog.PURCHASE_COMPLETED, getStage()).showAndWait();
+                new DialogBuilder().show(Dialog.PURCHASE_COMPLETED, getStage());
                 break;
 
         }

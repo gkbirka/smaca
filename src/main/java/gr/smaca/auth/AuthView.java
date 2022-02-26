@@ -35,11 +35,11 @@ public class AuthView extends AbstractView {
     }
 
     @FXML
-    private void handle(Event keyEvent) {
+    private synchronized void handle(Event keyEvent) {
         root.requestFocus();
 
         StringProperty pin = viewModel.pinProperty();
-        if (pin.get().length() >= pinMaxLength) {
+        if (pin.get().length() == pinMaxLength) {
             return;
         }
 
@@ -78,10 +78,10 @@ public class AuthView extends AbstractView {
         clear();
         switch (event.getType()) {
             case CONNECTION_ERROR:
-                new DialogBuilder().build(Dialog.CONNECTION_ERROR, getStage()).showAndWait();
+                new DialogBuilder().show(Dialog.CONNECTION_ERROR, getStage());
                 break;
             case WRONG_PIN:
-                new DialogBuilder().build(Dialog.WRONG_PIN, getStage()).showAndWait();
+                new DialogBuilder().show(Dialog.WRONG_PIN, getStage());
                 break;
         }
     }

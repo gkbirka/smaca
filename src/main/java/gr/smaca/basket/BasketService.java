@@ -54,7 +54,7 @@ class BasketService {
         return products;
     }
 
-    void purchaseProducts(String epc, List<Product> products) throws Exception {
+    boolean insertOrder(String epc, List<Product> products) throws Exception {
         String orderQuery = "INSERT INTO orders (order_id, user_epc, order_date, order_total) " +
                 "VALUES (default, '" + epc + "', NOW(), 0);";
 
@@ -97,6 +97,8 @@ class BasketService {
             }
 
             connection.commit();
+
+            return true;
         } catch (SQLException e) {
             connection.rollback();
 

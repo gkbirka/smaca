@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <GridPane fx:id="root" prefHeight="500.0" prefWidth="700.0" stylesheets="@../css/embedded/basket.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.smaca.basket.BasketView">
   <columnConstraints>
@@ -18,22 +20,26 @@
     <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
   </columnConstraints>
   <rowConstraints>
+      <RowConstraints />
     <RowConstraints vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="products">
+      <TableView fx:id="products" GridPane.rowIndex="1">
          <columns>
-            <TableColumn fx:id="name" editable="false" minWidth="-1.0" prefWidth="-1.0" text="%basket.table.column.name" />
-            <TableColumn fx:id="category" editable="false" minWidth="-1.0" prefWidth="-1.0" text="%basket.table.column.category" />
-            <TableColumn fx:id="price" editable="false" minWidth="-1.0" prefWidth="-1.0" text="%basket.table.column.price" />
+            <TableColumn fx:id="name" editable="false" minWidth="-1.0" prefWidth="-1.0" text="%basket.products.column.name" />
+            <TableColumn fx:id="category" editable="false" minWidth="-1.0" prefWidth="-1.0" text="%basket.products.column.category" />
+            <TableColumn fx:id="price" editable="false" minWidth="-1.0" prefWidth="-1.0" text="%basket.products.column.price" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <placeholder>
+            <Label fx:id="productsPlaceholderText" text="%basket.products.placeholder" />
+         </placeholder>
       </TableView>
-      <VBox fx:id="actions" GridPane.columnIndex="1">
+      <VBox fx:id="actions" GridPane.columnIndex="1" GridPane.rowSpan="2">
          <children>
-            <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+            <VBox fx:id="info" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="summaryText" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="%basket.label.summary">
                      <VBox.margin>
@@ -73,9 +79,36 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </VBox>
-            <Button fx:id="scan" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scan" onTouchPressed="#scan" text="%basket.button.scan" VBox.vgrow="SOMETIMES" />
-            <Button fx:id="purchase" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#purchase" onTouchPressed="#purchase" text="%basket.button.purchase" VBox.vgrow="SOMETIMES" />
+            <Button fx:id="scan" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scan" onTouchPressed="#scan" styleClass="button-scan" text="%basket.button.scan" VBox.vgrow="SOMETIMES">
+               <graphic>
+                  <Label fx:id="scanIconHolder">
+                     <graphic>
+                        <FontIcon fx:id="scanIcon" styleClass="icon-basket" />
+                     </graphic>
+                  </Label>
+               </graphic></Button>
+            <Button fx:id="purchase" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#purchase" onTouchPressed="#purchase" styleClass="button-purchase" text="%basket.button.purchase" VBox.vgrow="SOMETIMES">
+               <graphic>
+                  <Label fx:id="purchaseIconHolder">
+                     <graphic>
+                        <FontIcon fx:id="purchaseIcon" styleClass="icon-basket" />
+                     </graphic>
+                  </Label>
+               </graphic></Button>
          </children>
+         <styleClass>
+            <String fx:value="container-primary" />
+            <String fx:value="container-border-left" />
+         </styleClass>
       </VBox>
+      <Label fx:id="titleText" text="%basket.label.title">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </Label>
    </children>
+   <styleClass>
+      <String fx:value="container-primary" />
+      <String fx:value="container-border-top" />
+   </styleClass>
 </GridPane>
