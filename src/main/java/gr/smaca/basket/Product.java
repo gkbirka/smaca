@@ -11,7 +11,7 @@ public class Product {
     private final StringProperty category;
     private final DoubleProperty price;
 
-    public Product(int id, String name, String category, Double price) {
+    public Product(int id, String name, String category, double price) {
         this.id = id;
         this.name = new SimpleStringProperty(name);
         this.category = new SimpleStringProperty(category);

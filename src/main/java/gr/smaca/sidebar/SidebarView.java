@@ -55,7 +55,6 @@ public class SidebarView extends AbstractView {
                 break;
         }
 
-        viewModel.navigate(View.NONE);
         viewModel.navigate(view);
     }
 

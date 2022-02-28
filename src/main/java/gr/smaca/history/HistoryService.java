@@ -5,7 +5,6 @@ import gr.smaca.basket.Product;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ class HistoryService {
         while (resultSet.next()) {
             Order order = new Order(
                     resultSet.getInt("order_id"),
-                    new Timestamp(resultSet.getDate("order_date").getTime()).toLocalDateTime(),
+                    resultSet.getTimestamp("order_date"),
                     resultSet.getDouble("order_total"));
 
             orders.add(order);

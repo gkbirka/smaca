@@ -49,6 +49,7 @@ public class BasketView extends AbstractView {
 
         price.setCellFactory(column -> priceWithCurrency());
 
+        products.setSelectionModel(null);
         products.itemsProperty().bind(viewModel.productsProperty());
         products.getColumns().forEach(column -> {
             column.setReorderable(false);

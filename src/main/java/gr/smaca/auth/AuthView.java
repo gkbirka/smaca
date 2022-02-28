@@ -32,6 +32,7 @@ public class AuthView extends AbstractView {
     private void initialize() {
         pinMaxLength = dots.getChildren().size();
         numpad.disableProperty().bind(viewModel.pinProperty().length().isEqualTo(pinMaxLength));
+        root.requestFocus();
     }
 
     @FXML

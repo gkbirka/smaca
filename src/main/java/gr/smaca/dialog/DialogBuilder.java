@@ -8,11 +8,7 @@ import javafx.stage.Stage;
 
 public class DialogBuilder {
 
-    public void show(Dialog dialog, Stage owner) {
-        build(dialog, owner).showAndWait();
-    }
-
-    public boolean showConfirmation(Dialog dialog, Stage owner) {
+    public boolean show(Dialog dialog, Stage owner) {
         return build(dialog, owner).showAndWait().orElse(null) == ButtonType.OK;
     }
 

@@ -5,6 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 class Order {
@@ -12,9 +13,9 @@ class Order {
     private final ObjectProperty<LocalDateTime> date;
     private final DoubleProperty total;
 
-    Order(int id, LocalDateTime date, double total) {
+    Order(int id, Timestamp date, double total) {
         this.id = id;
-        this.date = new SimpleObjectProperty<>(date);
+        this.date = new SimpleObjectProperty<>(date.toLocalDateTime());
         this.total = new SimpleDoubleProperty(total);
     }
 

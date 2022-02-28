@@ -33,7 +33,7 @@ CREATE TABLE `categories` (
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `user_epc` varchar(30) NOT NULL,
-  `order_date` datetime NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `order_total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

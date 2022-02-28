@@ -15,11 +15,12 @@ class SidebarViewModel extends AbstractViewModel {
     }
 
     void navigate(View view) {
+        eventBus.emit(new NavigationEvent(View.NONE));
         eventBus.emit(new NavigationEvent(view));
     }
 
     void disconnect() {
-        navigate(View.NONE);
+        eventBus.emit(new NavigationEvent(View.NONE));
         eventBus.emit(new AuthEvent(AuthEvent.Type.DISCONNECT));
     }
 }
