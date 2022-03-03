@@ -1,9 +1,7 @@
 @import "../base.css";
 
 /*******************************************************************************
- *                                                                             *
- * Text                                                                        *
- *                                                                             *
+ * Text (Common)                                                               *
  ******************************************************************************/
 
 .text,
@@ -11,20 +9,17 @@ TextFlow > * {
     -fx-fill: #24272c;
 }
 
-.text-light {
+.text-subheader,
+.text-subheader .text {
     -fx-fill: #a4a2ab;
 }
 
 /*******************************************************************************
- *                                                                             *
  * Container                                                                   *
- *                                                                             *
  ******************************************************************************/
 
-.container-border-top {
-    -fx-border-color: #eeeeee;
-}
-
+.container-border,
+.container-border-top,
 .container-border-left {
     -fx-border-color: #eeeeee;
 }
@@ -35,13 +30,15 @@ TextFlow > * {
 
 .container-secondary {
     -fx-background-color: #ffffff;
-    -fx-border-color: #eeeeee;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb,
+.scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #dadada;
 }
 
 /*******************************************************************************
- *                                                                             *
  * Table View                                                                  *
- *                                                                             *
  ******************************************************************************/
 
 .table-view .column-header {
@@ -87,22 +84,33 @@ TextFlow > * {
     -fx-fill: #ffffff;
 }
 
-.table-view .virtual-flow .scroll-bar:vertical .thumb {
-    -fx-background-color: #dadada;
-}
-
+.table-view .virtual-flow .scroll-bar:vertical .thumb,
 .table-view .virtual-flow .scroll-bar:horizontal .thumb {
     -fx-background-color: #dadada;
 }
 
 /*******************************************************************************
- *                                                                             *
- * Ikonli Font Icon                                                            *
- *                                                                             *
+ * Icon                                                                        *
  ******************************************************************************/
 
 .ikonli-font-icon {
     -fx-icon-color: #24272c;
+}
+
+.icon-information {
+    -fx-icon-color: #007aff;
+}
+
+.icon-warning {
+    -fx-icon-color: #f9a825;
+}
+
+.icon-confirmation {
+    -fx-icon-color: #007aff;
+}
+
+.icon-error {
+    -fx-icon-color: #e57373;
 }
 
 .icon-sidebar {
@@ -113,25 +121,20 @@ TextFlow > * {
     -fx-icon-color: #007aff;
 }
 
-.icon-disconnect {
-    -fx-icon-color: #e57373;
+.icon-light {
+    -fx-icon-color: #ffffff;
 }
 
 .icon-other {
     -fx-icon-color: #007aff;
 }
 
-.icon-basket {
-    -fx-icon-color: #ffffff;
-}
-
 /*******************************************************************************
- *                                                                             *
  * Button                                                                      *
- *                                                                             *
  ******************************************************************************/
 
-.button:default {
+.button:default,
+.button:default:armed {
     -fx-background-color: #24272c;
 }
 
@@ -143,20 +146,13 @@ TextFlow > * {
     -fx-background-color: #4c4f55;
 }
 
-.button:default:armed {
-    -fx-background-color: #24272c;
-}
-
-.button:cancel {
+.button:cancel,
+.button:cancel:armed {
     -fx-background-color: #bdbdbd;
 }
 
 .button:cancel:hover {
     -fx-background-color: #a4a2ab;
-}
-
-.button:cancel:armed {
-    -fx-background-color: #bdbdbd;
 }
 
 .circle {
@@ -211,39 +207,31 @@ TextFlow > * {
     -fx-background-color: #deeffe;
 }
 
-.button-scan .text,
-.button-purchase .text {
+.button-submit .text,
+.button-other .text {
     -fx-fill: #ffffff;
 }
 
-.button-scan {
-    -fx-background-color: #007aff;
-}
-
-.button-scan:hover {
-    -fx-background-color: #004fcb;
-}
-
-.button-scan:pressed {
-    -fx-background-color: #007aff;
-}
-
-.button-purchase {
+.button-submit,
+.button-submit:pressed {
     -fx-background-color: #43a047;
 }
 
-.button-purchase:hover {
+.button-submit:hover {
     -fx-background-color: #00701a;
 }
 
-.button-purchase:pressed {
-    -fx-background-color: #43a047;
+.button-other,
+.button-other:pressed {
+    -fx-background-color: #007aff;
+}
+
+.button-other:hover {
+    -fx-background-color: #004fcb;
 }
 
 /*******************************************************************************
- *                                                                             *
  * Field                                                                       *
- *                                                                             *
  ******************************************************************************/
 
 .text-field,
@@ -265,9 +253,7 @@ TextFlow > * {
 }
 
 /*******************************************************************************
- *                                                                             *
  * Context Menu                                                                *
- *                                                                             *
  ******************************************************************************/
 
 .context-menu {
@@ -288,9 +274,7 @@ TextFlow > * {
 }
 
 /*******************************************************************************
- *                                                                             *
  * Tooltip                                                                     *
- *                                                                             *
  ******************************************************************************/
 
 .tooltip {
@@ -300,18 +284,4 @@ TextFlow > * {
 
 .tooltip .text {
     -fx-fill: #24272c;
-}
-
-/*******************************************************************************
- *                                                                             *
- * Progress Bar                                                                *
- *                                                                             *
- ******************************************************************************/
-
-.progress-bar > .track {
-    -fx-background-color: #24272c;
-}
-
-.progress-bar > .bar {
-    -fx-background-color: white;
 }

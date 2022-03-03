@@ -20,6 +20,7 @@ public class DialogBuilder {
 
         alert.setHeaderText(properties.getHeaderText());
         alert.setContentText(properties.getContentText());
+        alert.setGraphic(properties.getGraphic());
 
         ObservableList<ButtonType> buttons = properties.getButtons();
         if (buttons != null) {

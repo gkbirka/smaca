@@ -28,6 +28,14 @@ public enum Dialog {
             Alert.AlertType.INFORMATION,
             "dialog.info.purchase.content")),
 
+    PINS_DONT_MATCH(new DialogProperties(
+            Alert.AlertType.WARNING,
+            "dialog.warning.pins.content")),
+
+    PIN_CHANGED(new DialogProperties(
+            Alert.AlertType.INFORMATION,
+            "dialog.info.pin.content")),
+
     CONFIRM_CLOSE(new DialogProperties(
             Alert.AlertType.CONFIRMATION,
             "dialog.confirmation.close.content") {

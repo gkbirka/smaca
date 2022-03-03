@@ -21,9 +21,9 @@
             <VBox fx:id="form" styleClass="container-primary" VBox.vgrow="ALWAYS">
                <children>
                   <Label maxWidth="1.7976931348623157E308" />
-                  <TextFlow fx:id="promptTextFlow">
+                  <TextFlow fx:id="pinTextFlow">
                      <children>
-                        <Text fx:id="promptText" strokeType="OUTSIDE" strokeWidth="0.0" text="%auth.label.prompt" />
+                        <Text fx:id="pinText" strokeType="OUTSIDE" strokeWidth="0.0" text="%auth.text.pin" />
                      </children>
                   </TextFlow>
                   <Label maxWidth="1.7976931348623157E308" />

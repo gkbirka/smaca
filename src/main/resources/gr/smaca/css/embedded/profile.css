@@ -1,0 +1,39 @@
+/*******************************************************************************
+ * Title Label                                                                 *
+ ******************************************************************************/
+
+#titleLabel {
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 2em;
+}
+
+/*******************************************************************************
+ * Name                                                                        *
+ ******************************************************************************/
+
+#name {
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 1.5em;
+}
+
+/*******************************************************************************
+ * Save                                                                        *
+ ******************************************************************************/
+
+#save {
+    -fx-min-height: 3.2em;
+    -fx-pref-height: 3.2em;
+    -fx-font-family: 'Manrope Bold';
+    -fx-font-size: 1.1em;
+}
+
+#saveIconHolder {
+    -fx-font-size: 1.5em;
+    -fx-content-display: graphic_only;
+    -fx-padding: 0;
+}
+
+#saveIcon {
+    /*Comment -fx-icon-code to open profile.fxml in SceneBuilder*/
+    -fx-icon-code: las-save;
+}

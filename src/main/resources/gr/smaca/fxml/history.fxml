@@ -19,7 +19,7 @@
     <RowConstraints vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="titleText" text="%history.label.title">
+      <Label fx:id="titleLabel" text="%history.label.title">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>

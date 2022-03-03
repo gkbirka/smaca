@@ -1,7 +1,5 @@
 /*******************************************************************************
- *                                                                             *
  * Text (Common)                                                               *
- *                                                                             *
  ******************************************************************************/
 
 .text {
@@ -14,9 +12,7 @@
 }
 
 /*******************************************************************************
- *                                                                             *
  * Background & Border Radius (Common)                                         *
- *                                                                             *
  ******************************************************************************/
 
 .button,
@@ -30,9 +26,7 @@
 }
 
 /*******************************************************************************
- *                                                                             *
  * Container                                                                   *
- *                                                                             *
  ******************************************************************************/
 
 .container-border-top {
@@ -62,10 +56,17 @@
     -fx-background-color: transparent;
 }
 
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal,
+.scroll-pane .scroll-bar:vertical .track,
+.scroll-pane .scroll-bar:horizontal .track,
+.scroll-pane .scroll-bar:vertical .track-background,
+.scroll-pane .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+
 /*******************************************************************************
- *                                                                             *
  * Table View                                                                  *
- *                                                                             *
  ******************************************************************************/
 
 .table-view {
@@ -120,19 +121,39 @@
 }
 
 /*******************************************************************************
- *                                                                             *
- * Dialog Pane                                                                 *
- *                                                                             *
+ * Dialog & Dialog Pane                                                        *
  ******************************************************************************/
+
+.dialog-icon-holder {
+    -fx-font-size: 4em;
+}
 
 .dialog-pane .button:default {
     -fx-font-family: 'Manrope ExtraBold';
 }
 
 /*******************************************************************************
- *                                                                             *
+ * Icon                                                                        *
+ ******************************************************************************/
+
+.icon-information {
+    -fx-icon-code: las-info-circle;
+}
+
+.icon-warning {
+    -fx-icon-code: las-exclamation-triangle;
+}
+
+.icon-confirmation {
+    -fx-icon-code: las-question-circle;
+}
+
+.icon-error {
+    -fx-icon-code: las-exclamation-circle;
+}
+
+/*******************************************************************************
  * Button                                                                      *
- *                                                                             *
  ******************************************************************************/
 
 .button {
@@ -171,4 +192,14 @@
     -fx-max-width: 8em;
     -fx-max-height: 8em;
     -fx-padding: 0;
+}
+
+/*******************************************************************************
+ * Field                                                                       *
+ ******************************************************************************/
+
+.text-field,
+.password-field {
+    -fx-min-height: 3em;
+    -fx-pref-height: 3em;
 }

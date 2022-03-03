@@ -16,7 +16,7 @@
             <Label layoutX="10.0" layoutY="363.0" maxWidth="1.7976931348623157E308" />
             <TextFlow fx:id="scanTextFlow">
                <children>
-                  <Text fx:id="scanText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-light" text="%user.prompt.scan" />
+                  <Text fx:id="scanText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-subheader" text="%user.text.scan" />
                </children>
             </TextFlow>
             <Label maxWidth="1.7976931348623157E308" />
@@ -34,14 +34,14 @@
             <Label layoutX="10.0" layoutY="176.0" maxWidth="1.7976931348623157E308" />
             <TextFlow fx:id="epcTextFlow">
                <children>
-                  <Text fx:id="epcText" strokeType="OUTSIDE" strokeWidth="0.0" text="%user.prompt.epc" />
+                  <Text fx:id="epcText" strokeType="OUTSIDE" strokeWidth="0.0" text="%user.text.epc" />
                </children>
             </TextFlow>
             <Label layoutX="10.0" layoutY="181.0" maxWidth="1.7976931348623157E308" />
          </children></VBox>
    </content>
    <styleClass>
-      <String fx:value="edge-to-edge" />
       <String fx:value="container-primary" />
+      <String fx:value="edge-to-edge" />
    </styleClass>
 </ScrollPane>

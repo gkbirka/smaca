@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<ScrollPane fx:id="root" fitToHeight="true" fitToWidth="true" styleClass="container-primary" stylesheets="@../css/embedded/sidebar.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.smaca.sidebar.SidebarView">
+<ScrollPane fx:id="root" fitToHeight="true" fitToWidth="true" stylesheets="@../css/embedded/sidebar.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.smaca.sidebar.SidebarView">
    <content>
-      <VBox fx:id="background" styleClass="container-secondary">
+      <VBox fx:id="background">
          <children>
             <Button fx:id="basket" mnemonicParsing="false" styleClass="button-sidebar">
                <VBox.margin>
@@ -51,7 +52,7 @@
                <graphic>
                   <Label fx:id="disconnectIconHolder">
                      <graphic>
-                        <FontIcon fx:id="disconnectIcon" styleClass="icon-disconnect" />
+                        <FontIcon fx:id="disconnectIcon" styleClass="icon-error" />
                      </graphic>
                   </Label>
                </graphic>
@@ -60,6 +61,14 @@
                </VBox.margin>
             </Button>
          </children>
+         <styleClass>
+            <String fx:value="container-secondary" />
+            <String fx:value="container-border" />
+         </styleClass>
       </VBox>
    </content>
+   <styleClass>
+      <String fx:value="container-primary" />
+      <String fx:value="edge-to-edge" />
+   </styleClass>
 </ScrollPane>

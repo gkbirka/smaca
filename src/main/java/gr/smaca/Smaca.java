@@ -16,8 +16,10 @@ import gr.smaca.navigation.View;
 import gr.smaca.reader.ReaderApplicationComponent;
 import gr.smaca.reader.ReaderEvent;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -59,14 +61,14 @@ public class Smaca extends Application {
             component.initComponent(context);
         }
 
-        eventBus.emit(new NavigationEvent(View.USER));
-
-        Scene scene = new Scene(container, 1200, 800);
-        scene.getRoot().requestFocus();
+        Rectangle2D windowDimensions = computeWindowDimensions();
+        Scene scene = new Scene(container, windowDimensions.getMaxX(), windowDimensions.getMaxY());
         URL styleSheet = Smaca.class.getResource("/gr/smaca/css/theme/light.css");
         if (styleSheet != null) {
             scene.getStylesheets().add(styleSheet.toExternalForm());
         }
+
+        eventBus.emit(new NavigationEvent(View.USER));
 
         stage.setOnCloseRequest(event -> {
             if (confirmClose(stage)) {
@@ -80,6 +82,15 @@ public class Smaca extends Application {
         stage.setTitle("Smaca");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private static Rectangle2D computeWindowDimensions() {
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        boolean lowResolution = visualBounds.getMaxX() < 1024;
+
+        return lowResolution
+                ? new Rectangle2D(0, 0, (int) visualBounds.getMaxX() / 1.1, (int) visualBounds.getMaxY() / 1.1)
+                : new Rectangle2D(0, 0, (int) visualBounds.getMaxX() / 1.2, (int) visualBounds.getMaxY() / 1.2);
     }
 
     private static boolean confirmClose(Stage stage) {

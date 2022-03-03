@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class AuthView extends AbstractView {
     private final AuthViewModel viewModel;
-    private int pinMaxLength;
+    private int pinLength;
     @FXML
     private ScrollPane root;
     @FXML
@@ -30,9 +30,8 @@ public class AuthView extends AbstractView {
 
     @FXML
     private void initialize() {
-        pinMaxLength = dots.getChildren().size();
-        numpad.disableProperty().bind(viewModel.pinProperty().length().isEqualTo(pinMaxLength));
-        root.requestFocus();
+        pinLength = dots.getChildren().size();
+        numpad.disableProperty().bind(viewModel.pinProperty().length().isEqualTo(pinLength));
     }
 
     @FXML
@@ -40,7 +39,7 @@ public class AuthView extends AbstractView {
         root.requestFocus();
 
         StringProperty pin = viewModel.pinProperty();
-        if (pin.get().length() == pinMaxLength) {
+        if (pin.get().length() == pinLength) {
             return;
         }
 
@@ -49,7 +48,7 @@ public class AuthView extends AbstractView {
 
         fillDot(pin.get().length());
 
-        if (pin.get().length() == pinMaxLength) {
+        if (pin.get().length() == pinLength) {
             viewModel.auth();
         }
     }

@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.ResourceBundle;
 
@@ -36,6 +38,32 @@ class DialogProperties {
 
     String getContentText() {
         return contentText;
+    }
+
+    Label getGraphic() {
+        Label iconHolder = new Label();
+        iconHolder.getStyleClass().add("dialog-icon-holder");
+
+        String styleClass = "";
+        switch (type) {
+            case INFORMATION:
+                styleClass = "icon-information";
+                break;
+            case WARNING:
+                styleClass = "icon-warning";
+                break;
+            case CONFIRMATION:
+                styleClass = "icon-confirmation";
+                break;
+            case ERROR:
+                styleClass = "icon-error";
+                break;
+        }
+        FontIcon icon = new FontIcon();
+        icon.getStyleClass().add(styleClass);
+
+        iconHolder.setGraphic(icon);
+        return iconHolder;
     }
 
     ObservableList<ButtonType> getButtons() {

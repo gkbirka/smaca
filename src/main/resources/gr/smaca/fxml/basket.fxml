@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -24,6 +25,11 @@
     <RowConstraints vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
+      <Label fx:id="titleLabel" text="%basket.label.title">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </Label>
       <TableView fx:id="products" GridPane.rowIndex="1">
          <columns>
             <TableColumn fx:id="name" editable="false" minWidth="-1.0" prefWidth="-1.0" text="%basket.products.column.name" />
@@ -34,78 +40,79 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <placeholder>
-            <Label fx:id="productsPlaceholderText" text="%basket.products.placeholder" />
+            <Label fx:id="productsPlaceholderLabel" text="%basket.products.placeholder" />
          </placeholder>
       </TableView>
-      <VBox fx:id="actions" GridPane.columnIndex="1" GridPane.rowSpan="2">
-         <children>
-            <VBox fx:id="info" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="edge-to-edge" GridPane.columnIndex="1" GridPane.rowSpan="2">
+         <content>
+            <VBox fx:id="checkout">
                <children>
-                  <Label fx:id="summaryText" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="%basket.label.summary">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator prefWidth="200.0" />
-                  <HBox>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
+                  <VBox fx:id="info" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="totalProductsText" maxWidth="1.7976931348623157E308" text="%basket.label.products" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
+                        <Label fx:id="summaryLabel" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="%basket.label.summary">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                         </Label>
-                        <Label fx:id="totalProducts" text="0" />
+                        <Separator prefWidth="200.0" />
+                        <HBox>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label fx:id="totalProductsLabel" maxWidth="1.7976931348623157E308" text="%basket.label.products" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="totalProducts" text="0" />
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <HBox>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label fx:id="totalCostLabel" maxWidth="1.7976931348623157E308" text="%basket.label.cost" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="totalCost" text="0.0" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <Separator prefWidth="200.0" />
-                  <HBox>
                      <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
-                     <children>
-                        <Label fx:id="totalCostText" maxWidth="1.7976931348623157E308" text="%basket.label.cost" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
+                  </VBox>
+                  <Button fx:id="scan" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scan" onTouchPressed="#scan" styleClass="button-other" text="%basket.button.scan" VBox.vgrow="SOMETIMES">
+                     <graphic>
+                        <Label fx:id="scanIconHolder">
+                           <graphic>
+                              <FontIcon fx:id="scanIcon" styleClass="icon-light" />
+                           </graphic>
                         </Label>
-                        <Label fx:id="totalCost" text="0.0" />
-                     </children>
-                  </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="purchase" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#purchase" onTouchPressed="#purchase" styleClass="button-submit" text="%basket.button.purchase" VBox.vgrow="SOMETIMES">
+                     <graphic>
+                        <Label fx:id="purchaseIconHolder">
+                           <graphic>
+                              <FontIcon fx:id="purchaseIcon" styleClass="icon-light" />
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
                </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
+               <styleClass>
+                  <String fx:value="container-primary" />
+                  <String fx:value="container-border-left" />
+               </styleClass>
             </VBox>
-            <Button fx:id="scan" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scan" onTouchPressed="#scan" styleClass="button-scan" text="%basket.button.scan" VBox.vgrow="SOMETIMES">
-               <graphic>
-                  <Label fx:id="scanIconHolder">
-                     <graphic>
-                        <FontIcon fx:id="scanIcon" styleClass="icon-basket" />
-                     </graphic>
-                  </Label>
-               </graphic></Button>
-            <Button fx:id="purchase" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#purchase" onTouchPressed="#purchase" styleClass="button-purchase" text="%basket.button.purchase" VBox.vgrow="SOMETIMES">
-               <graphic>
-                  <Label fx:id="purchaseIconHolder">
-                     <graphic>
-                        <FontIcon fx:id="purchaseIcon" styleClass="icon-basket" />
-                     </graphic>
-                  </Label>
-               </graphic></Button>
-         </children>
-         <styleClass>
-            <String fx:value="container-primary" />
-            <String fx:value="container-border-left" />
-         </styleClass>
-      </VBox>
-      <Label fx:id="titleText" text="%basket.label.title">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </Label>
+         </content>
+      </ScrollPane>
    </children>
    <styleClass>
       <String fx:value="container-primary" />

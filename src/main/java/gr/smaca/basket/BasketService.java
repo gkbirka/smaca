@@ -64,7 +64,7 @@ class BasketService {
 
             int affectedRows = orderStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Purchasing failed, no order rows affected.");
+                throw new SQLException("Purchase failed, no order rows affected.");
             }
 
             int orderId;
@@ -72,7 +72,7 @@ class BasketService {
                 if (generatedKeys.next()) {
                     orderId = generatedKeys.getInt(1);
                 } else {
-                    throw new SQLException("Purchasing failed, no ID obtained.");
+                    throw new SQLException("Purchase failed, no ID obtained.");
                 }
             }
 
@@ -93,7 +93,7 @@ class BasketService {
             affectedRows = detailsStatement.executeUpdate();
 
             if (affectedRows != products.size()) {
-                throw new SQLException("Purchasing failed, no order details rows affected.");
+                throw new SQLException("Purchase failed, no order details rows affected.");
             }
 
             connection.commit();

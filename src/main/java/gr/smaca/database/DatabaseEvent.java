@@ -14,7 +14,7 @@ public class DatabaseEvent implements Event {
         this.type = type;
     }
 
-    public Type getType() {
+    Type getType() {
         return type;
     }
 }

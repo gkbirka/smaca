@@ -41,7 +41,8 @@ class BasketViewModel extends AbstractViewModel {
         Task<List<Product>> task = new Task<>() {
             @Override
             protected List<Product> call() throws Exception {
-                return service.getProducts(tags.stream()
+                return service.getProducts(tags
+                        .stream()
                         .map(Tag::getEpc)
                         .collect(Collectors.toList()));
             }
@@ -54,6 +55,8 @@ class BasketViewModel extends AbstractViewModel {
 
             @Override
             protected void failed() {
+                this.getException().printStackTrace();
+
                 eventBus.emit(new BasketEvent(BasketEvent.Type.CONNECTION_ERROR));
             }
         };
@@ -75,6 +78,8 @@ class BasketViewModel extends AbstractViewModel {
 
             @Override
             protected void failed() {
+                this.getException().printStackTrace();
+
                 eventBus.emit(new BasketEvent(BasketEvent.Type.CONNECTION_ERROR));
             }
         };

@@ -39,6 +39,8 @@ class AuthViewModel extends AbstractViewModel {
 
             @Override
             protected void failed() {
+                this.getException().printStackTrace();
+
                 eventBus.emit(new AuthEvent(AuthEvent.Type.CONNECTION_ERROR));
             }
         };
