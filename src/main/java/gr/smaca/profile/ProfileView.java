@@ -67,7 +67,7 @@ public class ProfileView extends AbstractView {
         if (pinsMatch.get()) {
             viewModel.save();
         } else {
-            new DialogBuilder().show(Dialog.PINS_DONT_MATCH, getStage());
+            new DialogBuilder().show(Dialog.PINS_DO_NOT_MATCH, getStage());
         }
     }
 

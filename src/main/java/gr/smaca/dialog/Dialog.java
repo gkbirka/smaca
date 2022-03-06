@@ -28,9 +28,9 @@ public enum Dialog {
             Alert.AlertType.INFORMATION,
             "dialog.info.purchase.content")),
 
-    PINS_DONT_MATCH(new DialogProperties(
+    PINS_DO_NOT_MATCH(new DialogProperties(
             Alert.AlertType.WARNING,
-            "dialog.warning.pins.content")),
+            "dialog.warning.match.content")),
 
     PIN_CHANGED(new DialogProperties(
             Alert.AlertType.INFORMATION,

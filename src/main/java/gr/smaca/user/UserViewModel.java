@@ -34,11 +34,9 @@ class UserViewModel extends AbstractViewModel {
                 User user = this.getValue();
                 state.setUser(user);
 
-                if (user != null) {
-                    eventBus.emit(new UserEvent(UserEvent.Type.USER_FOUND));
-                } else {
-                    eventBus.emit(new UserEvent(UserEvent.Type.USER_NOT_FOUND));
-                }
+                UserEvent event = new UserEvent(user != null ? UserEvent.Type.USER_FOUND : UserEvent.Type.USER_NOT_FOUND);
+
+                eventBus.emit(event);
             }
 
             @Override
