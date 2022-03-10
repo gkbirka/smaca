@@ -67,7 +67,7 @@ public class ProfileView extends AbstractView {
         if (pinsMatch.get()) {
             viewModel.save();
         } else {
-            new DialogBuilder().show(Dialog.PINS_DO_NOT_MATCH, getStage());
+            DialogBuilder.show(Dialog.PINS_DO_NOT_MATCH, getStage());
         }
     }
 
@@ -86,13 +86,13 @@ public class ProfileView extends AbstractView {
     void handle(ProfileEvent event) {
         switch (event.getType()) {
             case CONNECTION_ERROR:
-                new DialogBuilder().show(Dialog.CONNECTION_ERROR, getStage());
+                DialogBuilder.show(Dialog.CONNECTION_ERROR, getStage());
                 break;
             case PIN_CHANGED:
-                new DialogBuilder().show(Dialog.PIN_CHANGED, getStage());
+                DialogBuilder.show(Dialog.PIN_CHANGED, getStage());
                 break;
             case WRONG_PIN:
-                new DialogBuilder().show(Dialog.WRONG_PIN, getStage());
+                DialogBuilder.show(Dialog.WRONG_PIN, getStage());
                 break;
         }
     }

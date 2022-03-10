@@ -94,6 +94,6 @@ public class Smaca extends Application {
     }
 
     private static boolean confirmClose(Stage stage) {
-        return new DialogBuilder().show(Dialog.CONFIRM_CLOSE, stage);
+        return DialogBuilder.show(Dialog.CONFIRM_CLOSE, stage);
     }
 }

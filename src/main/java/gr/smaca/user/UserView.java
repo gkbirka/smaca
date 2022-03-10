@@ -36,17 +36,17 @@ public class UserView extends AbstractView {
         if (tags.size() == 1) {
             viewModel.loadUser(tags.get(0));
         } else {
-            new DialogBuilder().show(Dialog.MULTIPLE_TAGS_DETECTED, getStage());
+            DialogBuilder.show(Dialog.MULTIPLE_TAGS_DETECTED, getStage());
         }
     }
 
     void handle(UserEvent event) {
         switch (event.getType()) {
             case CONNECTION_ERROR:
-                new DialogBuilder().show(Dialog.CONNECTION_ERROR, getStage());
+                DialogBuilder.show(Dialog.CONNECTION_ERROR, getStage());
                 break;
             case USER_NOT_FOUND:
-                new DialogBuilder().show(Dialog.USER_NOT_FOUND, getStage());
+                DialogBuilder.show(Dialog.USER_NOT_FOUND, getStage());
                 break;
         }
 

@@ -6,13 +6,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 
-public class DialogBuilder {
+public final class DialogBuilder {
 
-    public boolean show(Dialog dialog, Stage owner) {
+    private DialogBuilder() {}
+
+    public static boolean show(Dialog dialog, Stage owner) {
         return build(dialog, owner).showAndWait().orElse(null) == ButtonType.OK;
     }
 
-    private Alert build(Dialog dialog, Stage owner) {
+    private static Alert build(Dialog dialog, Stage owner) {
         DialogProperties properties = dialog.getProperties();
 
         Alert alert = new Alert(properties.getType());

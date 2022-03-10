@@ -97,7 +97,7 @@ public class HistoryView extends AbstractView {
 
     void handle(HistoryEvent event) {
         if (event.getType() == HistoryEvent.Type.CONNECTION_ERROR) {
-            new DialogBuilder().show(Dialog.CONNECTION_ERROR, getStage());
+            DialogBuilder.show(Dialog.CONNECTION_ERROR, getStage());
         }
 
         orders.setDisable(false);

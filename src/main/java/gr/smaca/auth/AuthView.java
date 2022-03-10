@@ -78,10 +78,10 @@ public class AuthView extends AbstractView {
         clear();
         switch (event.getType()) {
             case CONNECTION_ERROR:
-                new DialogBuilder().show(Dialog.CONNECTION_ERROR, getStage());
+                DialogBuilder.show(Dialog.CONNECTION_ERROR, getStage());
                 break;
             case WRONG_PIN:
-                new DialogBuilder().show(Dialog.WRONG_PIN, getStage());
+                DialogBuilder.show(Dialog.WRONG_PIN, getStage());
                 break;
         }
     }

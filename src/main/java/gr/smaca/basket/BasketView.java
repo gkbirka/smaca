@@ -94,7 +94,7 @@ public class BasketView extends AbstractView {
     void handle(BasketEvent event) {
         switch (event.getType()) {
             case CONNECTION_ERROR:
-                new DialogBuilder().show(Dialog.CONNECTION_ERROR, getStage());
+                DialogBuilder.show(Dialog.CONNECTION_ERROR, getStage());
                 scan.setDisable(false);
                 if (viewModel.productsProperty().size() > 0) {
                     purchase.setDisable(false);
@@ -106,7 +106,7 @@ public class BasketView extends AbstractView {
                 break;
             case PURCHASE_COMPLETED:
                 viewModel.productsProperty().clear();
-                new DialogBuilder().show(Dialog.PURCHASE_COMPLETED, getStage());
+                DialogBuilder.show(Dialog.PURCHASE_COMPLETED, getStage());
                 break;
 
         }
