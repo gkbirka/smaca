@@ -37,6 +37,8 @@ public class UserView extends AbstractView {
             viewModel.loadUser(tags.get(0));
         } else {
             DialogBuilder.show(Dialog.MULTIPLE_TAGS_DETECTED, getStage());
+
+            scan.setDisable(false);
         }
     }
 
